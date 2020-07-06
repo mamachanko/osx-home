@@ -1,0 +1,9 @@
+OSX_HOME_PATH="${HOME}/workspace/osx-home"
+
+if [[ ! -d "${OSX_HOME_PATH}" ]]; then
+  echo "Sorry, but this repo needs to be cloned to ${OSX_HOME_PATH}"
+  exit 1
+fi
+
+export PATH="${OSX_HOME_PATH}/bin:${PATH}"
+

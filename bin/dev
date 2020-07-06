@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+COMMAND="${@:-bash}"
+
+docker run \
+  --rm \
+  --volume $(pwd):/workspace \
+  --volume $(pwd)/vimrc:/root/.vimrc \
+  --volume $(pwd)/init.vim:/root/.config/nvim/init.vim \
+  --volume ~/.ssh:/root/.ssh \
+  --workdir /workspace \
+  --volume /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock \
+  --env SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
+  -it \
+  mamachanko/dev $COMMAND
+
