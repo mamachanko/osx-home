@@ -1,11 +1,9 @@
 # osx-home
 
 ```
+sudo xcodebuild -license
 mkdir ~/workspace
-git clone git@github.com:mamachanko/osx-home ~/workspace/osx-home
-cd ~/workspace/osx-home
-
-./install.sh
-./setup.sh
+git clone https://github.com/mamachanko/osx-home ~/workspace/osx-home
+~/workspace/osx-home/bin/install
 ```
 

@@ -1,3 +1,9 @@
+call plug#begin()
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/tpope/vim-sensible'
+call plug#end()
+
 set colorcolumn=80
 
 set nocompatible
@@ -30,9 +36,4 @@ set smartcase
 autocmd BufRead,BufNewFile *.go set wm=2 tw=120
 
 syntax on
-
-
-call plug#begin()
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-call plug#end()
 

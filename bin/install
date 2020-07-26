@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")"/..
+
+main() {
+  echo
+  echo "👷 installing ..."
+  echo
+  install_config
+  set_keyrepeat
+  set_dock_preferences
+  install_homebrew
+  install_software
+  setup_tmux
+  setup_fzf
+  setup_neovim
+  echo
+  echo "👷 done installing. ✅"
+  echo
+}
+
+install_config() {
+  local homedir_source=$(pwd)
+  local dotfiles_dir="${homedir_source}/dotfiles"
+
+  if [[ ! -L ~/.config ]]; then
+    ln -sFfv "${dotfiles_dir}/dot.config" ~/.config
+  fi
+
+  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+}
+
+set_keyrepeat() {
+   defaults write NSGlobalDomain KeyRepeat -int 2
+   defaults write NSGlobalDomain InitialKeyRepeat -int 25
+   defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+}
+
+set_dock_preferences() {
+  defaults write "com.apple.dock" "orientation" -string "left"
+  defaults write "com.apple.dock" "autohide" -bool "true"
+  defaults write "com.apple.dock" "persistent-apps" -array
+  killall Dock
+}
+
+install_homebrew() {
+  if [ ! -x $(which brew) ]; then
+    echo
+    echo "🍺 installing homebrew ..."
+    echo
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo
+    echo "✅ installed homebrew."
+    echo
+  else
+    brew update || true
+  fi
+}
+
+install_software() {
+  echo
+  echo "  will brew install:"
+  echo
+  brew bundle list --all --file=~/.config/osx-home/Brewfile
+  echo
+  echo "  let's brew"
+  echo
+  brew bundle install --file=~/.config/osx-home/Brewfile
+  brew bundle check --file=~/.config/osx-home/Brewfile
+  echo
+  echo "  done brewing"
+  echo
+}
+
+setup_tmux() {
+  curl -fsSL https://raw.githubusercontent.com/luan/tmuxfiles/master/install | bash
+}
+
+setup_fzf() {
+  $(brew --prefix)/opt/fzf/install --completion --key-bindings --update-rc --no-fish --no-bash
+}
+
+setup_neovim() {
+  echo
+  echo "📝 setting up neovim ..."
+  echo
+  nvim -c "PlugInstall" -c "qall" --headless
+  nvim -c "PlugUpdate" -c "qall" --headless
+  nvim -c "UpdateRemotePlugins" -c "qall" --headless
+  echo
+  echo "✅ set up neovim."
+  echo
+}
+
+main
+

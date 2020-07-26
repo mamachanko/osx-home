@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+HOSTNAME=${1}
+
+sudo scutil --set HostName ${HOSTNAME}
+sudo scutil --set LocalHostName ${HOSTNAME}
+sudo scutil --set ComputerName ${HOSTNAME}
