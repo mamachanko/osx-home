@@ -5,7 +5,6 @@ tap "cloudfoundry/tap"
 brew "ag"
 brew "neovim"
 brew "curl"
-brew "ag"
 brew "direnv"
 brew "docker-compose"
 brew "jq"
@@ -15,12 +14,9 @@ brew "fzf"
 brew "shellcheck"
 brew "cloudfoundry/tap/cf-cli"
 
-cask 'visual-studio-code'
 cask 'iterm2'
 cask 'notion'
 cask 'firefox'
-cask 'spotify'
-cask 'docker'
 cask 'shiftit'
 cask '1password'
 cask '1password-cli'
