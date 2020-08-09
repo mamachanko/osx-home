@@ -59,8 +59,11 @@ set_tap_to_click() {
 }
 
 install_homebrew() {
-  if [[ $(brew 2>/dev/null) ]]; then
-    echo  brew update || true  
+  if [[ $(brew --version 2>/dev/null) ]]; then
+    echo
+    echo "🍺 updating homebrew ..."
+    echo
+    brew update
   else
     echo
     echo "🍺 installing homebrew ..."
