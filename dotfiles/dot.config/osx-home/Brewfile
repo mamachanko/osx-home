@@ -6,7 +6,6 @@ brew "ag"
 brew "neovim"
 brew "curl"
 brew "direnv"
-brew "docker-compose"
 brew "jq"
 brew "tree"
 brew "tmux"
@@ -14,7 +13,7 @@ brew "fzf"
 brew "shellcheck"
 brew "cloudfoundry/tap/cf-cli"
 
-cask 'iterm2'
+cask 'kitty'
 cask 'notion'
 cask 'firefox'
 cask 'shiftit'
