@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+declare -a APPS=("slack"
+                 "zoom.us"
+                 "notion"
+                 "microsoft outlook"
+                 "google chrome"
+                 "1password 7"
+                )
+
+main() {
+  local subcommand
+  subcommand=${1:-"help"}
+
+  case "$subcommand" in
+    start) start;;
+    end) end;;
+    help) help;;
+  esac
+}
+
+help() {
+  echo "usage: workday [ start | end ]"
+  # It seems good practice to exit with code 64 in this case.
+  # See https://www.freebsd.org/cgi/man.cgi?query=sysexits
+  exit 64
+}
+
+start() {
+  echo
+  echo "👷 Firing up the cylinders ..."
+  echo
+
+  turn_wifi_on
+  start_apps
+
+  echo
+  echo "👷 All systems active. Have a productive day!"
+  echo
+}
+
+end() {
+  echo
+  echo "👷 Shutting down systems ..."
+  echo
+
+  stop_apps
+  turn_wifi_off
+
+  echo "👷 All systems down. Have a pleasant evening!"
+  echo
+}
+
+start_apps() {
+  for app in "${APPS[@]}" ; do
+    echo "opening $app ..."
+    open -g -a "$app"
+  done
+}
+
+stop_apps() {
+  for app in "${APPS[@]}" ; do
+    echo "closing $app ..."
+    osascript -e "tell application \"$app\" to quit with saving" 2>/dev/null || true
+  done
+}
+
+turn_wifi_on() {
+  echo "turning on wifi ..."
+  networksetup -setairportpower en0 on
+}
+
+turn_wifi_off() {
+  echo "turning off wifi ..."
+  networksetup -setairportpower en0 off
+}
+
+main "$@"
+ 
