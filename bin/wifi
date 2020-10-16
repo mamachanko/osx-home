@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+main() {
+  local command
+  command=${1:-help}
+
+  case $command in
+    on) turn_wifi_on;;
+    off) turn_wifi_off;;
+    help) usage;;
+  esac
+}
+
+turn_wifi_on() {
+  echo "turning wifi on ..."
+  networksetup -setairportpower en0 on
+}
+
+turn_wifi_off() {
+  echo "turning wifi off ..."
+  networksetup -setairportpower en0 off
+}
+
+usage() {
+  echo "wifi [ on | off ]"
+  exit 1
+}
+
+main $@

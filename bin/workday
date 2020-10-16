@@ -33,7 +33,7 @@ start() {
   echo "👷 Firing up the cylinders ..."
   echo
 
-  turn_wifi_on
+  wifi on
   start_apps
 
   echo
@@ -47,7 +47,7 @@ end() {
   echo
 
   stop_apps
-  turn_wifi_off
+  wifi off
 
   echo "👷 All systems down. Have a pleasant evening!"
   echo
@@ -67,15 +67,5 @@ stop_apps() {
   done
 }
 
-turn_wifi_on() {
-  echo "turning on wifi ..."
-  networksetup -setairportpower en0 on
-}
-
-turn_wifi_off() {
-  echo "turning off wifi ..."
-  networksetup -setairportpower en0 off
-}
-
 main "$@"
- 
+
