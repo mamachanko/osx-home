@@ -10,6 +10,7 @@ alias ll='ls -lah'
 
 export GREP_OPTIONS="--color"
 
+bindkey -e
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 export HISTCONTROL=erasedups
@@ -33,3 +34,5 @@ autoload colors && colors
 PS1="%{$fg[yellow]%}%n@%m %~ %{$reset_color%}%\> "
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias pracvim='gh gist edit 6f7338bc12924126ef0a60bb6a627be4 --filename practical_vim.md'
