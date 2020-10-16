@@ -1,22 +1,23 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "cloudfoundry/tap"
 
 brew "ag"
-brew "neovim"
 brew "curl"
 brew "direnv"
-brew "jq"
-brew "tree"
-brew "tmux"
 brew "fzf"
+brew "jq"
+brew "neovim"
 brew "shellcheck"
-brew "cloudfoundry/tap/cf-cli"
+brew "tmux"
+brew "tree"
 
-cask 'kitty'
-cask 'notion'
-cask 'firefox'
-cask 'shiftit'
 cask '1password'
 cask '1password-cli'
-
+cask 'anki'
+cask 'docker'
+cask 'firefox'
+cask 'google-backup-and-sync'
+cask 'kitty'
+cask 'notion'
+cask 'shiftit'
+cask 'spotify'
