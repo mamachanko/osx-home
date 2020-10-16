@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-: ${KITTY_THEMES_DIR:=~/.config/kitty/kitty-themes}
+: ${KITTY_THEMES_DIR:=~/.kitty-themes}
 : ${KITTY_THEME_CONF:=~/.config/kitty/theme.conf}
 KITTY_DEFAULT_THEME="Floraverse"
 
