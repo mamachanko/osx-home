@@ -113,6 +113,12 @@ install_kitty_themes() {
 setup_tmux() {
   rm -rf ~/.tmux
   curl -fsSL https://raw.githubusercontent.com/luan/tmuxfiles/master/install | bash
+  cat <<EOF >> ~/.tmux.conf 
+
+# Set Bash as the default shell in tmux sessions.
+set-option -g default-shell /usr/local/bin/bash
+
+EOF
 }
 
 setup_fzf() {
