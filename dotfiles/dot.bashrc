@@ -21,7 +21,7 @@ configure_bash_env() {
 	source vendor/bash/*
 
 	LANG=en_US.UTF-8
-	EDITOR=vim
+	EDITOR=nvim
 	LESS=-Ri
 
 	# Include my scripts in PATH. I keep my script in ~/bin.
@@ -53,6 +53,7 @@ configure_fuzzyfinder() {
 }
 
 configure_aliases() {
+	alias vim=nvim
 	alias ls='ls -Glah'
 	alias ll='ls'
 	alias load_ssh='lpass login mbrauer@vmware.com && ssh-lpass-agent load -n "Personal/github_id_rsa"'
