@@ -122,7 +122,11 @@ EOF
 }
 
 setup_fzf() {
-  $(brew --prefix)/opt/fzf/install --completion --key-bindings --update-rc --no-fish --no-bash
+  $(brew --prefix)/opt/fzf/install \
+    --completion \
+    --key-bindings \
+    --update-rc \
+    --no-fish
 }
 
 setup_neovim() {
