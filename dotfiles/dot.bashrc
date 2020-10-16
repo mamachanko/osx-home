@@ -4,7 +4,6 @@ main() {
 	configure_kitty
 	configure_direnv
 	configure_bash
-	echo good to go
 }
 
 configure_kitty() {
@@ -12,11 +11,6 @@ configure_kitty() {
 }
 
 configure_bash() {
-	echo "configuring bash ..."
-
-	source ~/vendor/bash/colours.bash
-	source ~/vendor/bash/git-completion.bash
-
 	configure_bash_env
 	configure_fuzzyfinder
 	configure_aliases
@@ -24,6 +18,8 @@ configure_bash() {
 }
 
 configure_bash_env() {
+	source vendor/bash/*
+
 	LANG=en_US.UTF-8
 	EDITOR=vim
 	LESS=-Ri
@@ -44,6 +40,12 @@ configure_bash_env() {
 
 	LSCOLORS="GxFxCxDxBxEgEdabagacad"
 	GREP_OPTIONS="--color"
+
+	# Configure up/down arrow keys to search through history.
+	bind '"\e[A": history-search-backward'
+	bind '"\e[B": history-search-forward'
+	bind '"\eOA": history-search-backward'
+	bind '"\eOB": history-search-forward'
 }
 
 configure_fuzzyfinder() {
@@ -124,10 +126,8 @@ parse_git_dirty() {
 }
 
 configure_direnv() {
-	echo "configuring direnv ..."
 	eval "$(direnv hook bash)"
 }
 
 main
 
-source ~/workspace/bosh-backup-and-restore-home/include.bash.or.zsh

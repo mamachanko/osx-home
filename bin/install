@@ -33,14 +33,24 @@ install_config() {
     ln -sFfv "${dotfiles_dir}/dot.config" ~/.config
   fi
 
-  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+  ln -sfv "${homedir_source}/vendor" ~/vendor
+
+  ln -sfv "${dotfiles_dir}/dot.profile" ~/.profile
   ln -sfv "${dotfiles_dir}/dot.bashrc" ~/.bashrc
+  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
 
 setup_macos() {
+  set_bash_as_shell
   set_keyrepeat
   set_dock_preferences
   set_tap_to_click
+}
+
+set_bash_as_shell() {
+  if [ $SHELL != '/bin/bash' ]; then
+    chsh -s /bin/bash
+  fi
 }
 
 set_keyrepeat() {
@@ -95,6 +105,7 @@ install_software() {
 }
 
 setup_tmux() {
+  rm -rf ~/.tmux
   curl -fsSL https://raw.githubusercontent.com/luan/tmuxfiles/master/install | bash
 }
 
