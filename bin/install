@@ -8,14 +8,18 @@ main() {
   echo
   echo "👷 installing ..."
   echo
-  install_config
+
   setup_macos
+
+  install_config
   install_homebrew
   install_software
+
   setup_tmux
   setup_fzf
   setup_neovim
   setup_git
+
   echo
   echo "👷 done installing. ✅"
   echo
@@ -30,6 +34,7 @@ install_config() {
   fi
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+  ln -sfv "${dotfiles_dir}/dot.bashrc" ~/.bashrc
 }
 
 setup_macos() {
