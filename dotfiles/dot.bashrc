@@ -25,7 +25,7 @@ configure_bash_env() {
 	LESS=-Ri
 
 	# Include my scripts in PATH. I keep my script in ~/bin.
-	PATH="$HOME/bin:$HOME/go/bin:$PATH"
+	PATH="$HOME/workspace/osx-home/bin:$HOME/go/bin:$PATH"
 
 	# Set TERM='xterm-256color' get proper color support in Vim and other
 	# applications.

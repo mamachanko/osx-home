@@ -27,10 +27,17 @@ main() {
 }
 
 install_themes() {
-  git clone \
-    --depth 1 \
-    git@github.com:dexpota/kitty-themes.git \
-    "$KITTY_THEMES_DIR"
+  if [ -d "$KITTY_THEMES_DIR" ]; then
+    (
+      cd $KITTY_THEMES_DIR
+      git pull --rebase
+    )
+  else
+    git clone \
+      --depth 1 \
+      git@github.com:dexpota/kitty-themes.git \
+      "$KITTY_THEMES_DIR"
+  fi
 
   set_theme "$KITTY_DEFAULT_THEME"
 
