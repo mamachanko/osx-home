@@ -2,13 +2,15 @@
 
 set -euo pipefail
 
-: ${KITTY_THEMES_DIR:=~/.kitty-themes}
+: ${KITTY_CONF:=~/.config/kitty/kitty.conf}
 : ${KITTY_THEME_CONF:=~/.config/kitty/theme.conf}
+: ${KITTY_THEMES_DIR:=~/.kitty-themes}
+
 KITTY_DEFAULT_THEME="Floraverse"
 
 usage() {
   echo
-  echo "usage: $0 [ install | uninstall | list | get | set [THEME] ]"
+  echo "usage: $0 [ install | update | uninstall | list | get | set [THEME] | try [THEME] ]"
   echo
   exit 1
 }
@@ -18,15 +20,23 @@ main() {
 
   case $command in
     install) install_themes;;
+    update) get_or_update_kitty_themes;;
     uninstall) uninstall_themes;;
     list) list_themes;;
     get) get_current_theme;;
     set) shift 1; set_theme $@;;
+    try) shift 1; try_theme $@;;
     help) usage;;
   esac
 }
 
 install_themes() {
+  get_or_update_kitty_themes
+  include_theme_conf_in_kitty_conf
+  set_theme "$KITTY_DEFAULT_THEME"
+}
+
+get_or_update_kitty_themes() {
   if [ -d "$KITTY_THEMES_DIR" ]; then
     (
       cd $KITTY_THEMES_DIR
@@ -38,37 +48,69 @@ install_themes() {
       git@github.com:dexpota/kitty-themes.git \
       "$KITTY_THEMES_DIR"
   fi
+}
 
-  set_theme "$KITTY_DEFAULT_THEME"
-
-  cat <<EOF >> ~/.config/kitty/kitty.conf
-
+include_theme_conf_in_kitty_conf() {
+  if ! grep 'include ./theme.conf' "$KITTY_CONF"; then
+    cat <<EOF >> ~/.config/kitty/kitty.conf
 include ./theme.conf
-
 EOF
+  fi
 }
 
 uninstall_themes() {
+  exclude_theme_conf_from_kitty_conf
+
+  # Remove kitty themes and the symlink to the currently set theme.
   rm -rf \
     "$KITTY_THEMES_DIR" \
     "$KITTY_THEME_CONF"
 }
 
+exclude_theme_conf_from_kitty_conf() {
+  sed -i '' '/include \.\/theme\.conf/d' "$KITTY_CONF"
+}
+
 list_themes() {
+  ensure_themes_installed
+
   /bin/ls "$KITTY_THEMES_DIR"/themes \
     | xargs -n1 echo \
     | sed 's/\.conf//g'
 }
 
+ensure_themes_installed() {
+  if [ ! -d "$KITTY_THEMES_DIR" ]; then
+    get_or_update_kitty_themes
+  fi
+}
+
 get_current_theme() {
-  basename $(readlink "$KITTY_THEME_CONF") \
-    | sed 's/\.conf//g'
+  if [ -e "$KITTY_THEME_CONF" ]; then
+    basename $(readlink "$KITTY_THEME_CONF") \
+      | sed 's/\.conf//g'
+  else
+    echo "No theme set."
+    exit 1
+  fi
 }
 
 set_theme() {
   local theme=${1:?}
 
+  ensure_themes_installed
+
   ln -svf "$KITTY_THEMES_DIR/themes/$theme.conf" "$KITTY_THEME_CONF"
+}
+
+try_theme() {
+  local theme=${1:?}
+
+  ensure_themes_installed
+
+  # Start a new instance of kitty with the given theme.
+  # https://github.com/dexpota/kitty-themes#previews
+  kitty -o include="$KITTY_THEMES_DIR/themes/$theme.conf"
 }
 
 main $@
