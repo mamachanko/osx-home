@@ -17,8 +17,8 @@ configure_bash() {
 }
 
 configure_env() {
-  source vendor/bash/colours.bash
-  source vendor/bash/git-completion.bash
+  source ~/vendor/bash/colours.bash
+  source ~/vendor/bash/git-completion.bash
 
   LANG=en_US.UTF-8
   EDITOR=nvim
