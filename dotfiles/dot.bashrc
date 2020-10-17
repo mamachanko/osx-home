@@ -24,6 +24,9 @@ configure_env() {
   EDITOR=nvim
   LESS=-Ri
 
+  # Do not immediately quit the shell on C-d, but only after the third time.
+  IGNOREEOF=2
+
   # Include my scripts in PATH. I keep my script in ~/bin.
   PATH="$HOME/workspace/osx-home/bin:$HOME/go/bin:$PATH"
 
