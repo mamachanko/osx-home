@@ -1,11 +1,12 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 
-brew "bash"
 brew "ag"
+brew "bash"
 brew "curl"
 brew "direnv"
 brew "fzf"
+brew "gh"
 brew "jq"
 brew "neovim"
 brew "shellcheck"
