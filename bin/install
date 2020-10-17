@@ -137,6 +137,9 @@ setup_neovim() {
   echo
   echo "📝 setting up neovim ..."
   echo
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --upgrade pynvim
+
   nvim -c "PlugInstall" -c "qall" --headless
   nvim -c "PlugUpdate" -c "qall" --headless
   nvim -c "UpdateRemotePlugins" -c "qall" --headless
