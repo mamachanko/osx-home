@@ -1,3 +1,29 @@
+" Install plugins. {{
+call plug#begin()
+
+" Better defaults for commong Vim settings.
+Plug 'tpope/vim-sensible'
+
+" A colorscheme
+Plug 'joshdick/onedark.vim'
+
+" A nicer statusline.
+Plug 'vim-airline/vim-airline'
+
+" Write better shell scripts with shellcheck
+" See: https://github.com/koalaman/shellcheck
+Plug 'itspriddle/vim-shellcheck'
+
+" Semantic Highlighting for Python in Neovim
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+" Automatically comply with Python's PEP8 rules for indentation.
+" See: https://www.python.org/dev/peps/pep-0008/
+Plug 'Vimjas/vim-python-pep8-indent'
+
+call plug#end()
+" }}
+
 " Draw a visible column to see when lines get long.
 set colorcolumn=80
 
@@ -52,34 +78,3 @@ set noshowmode
 
 " Enable syntax highlighting.
 syntax on
-
-"
-" Install plugins. {{
-"
-call plug#begin()
-
-" Better defaults for commong Vim settings.
-Plug 'tpope/vim-sensible'
-
-" A colorscheme
-Plug 'joshdick/onedark.vim'
-
-" A nicer statusline.
-Plug 'vim-airline/vim-airline'
-
-" Write better shell scripts with shellcheck
-" See: https://github.com/koalaman/shellcheck
-Plug 'itspriddle/vim-shellcheck'
-
-" Semantic Highlighting for Python in Neovim
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-" Automatically comply with Python's PEP8 rules for indentation.
-" See: https://www.python.org/dev/peps/pep-0008/
-Plug 'Vimjas/vim-python-pep8-indent'
-
-call plug#end()
-"
-" }}
-"
-
