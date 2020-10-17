@@ -12,7 +12,7 @@ brew "neovim"
 brew "shellcheck"
 brew "tmux"
 brew "tree"
-brew "python@3.8"
+brew "pyenv"
 
 cask '1password'
 cask '1password-cli'
