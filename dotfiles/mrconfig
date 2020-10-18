@@ -1,0 +1,9 @@
+
+[workspace/osx-home]
+checkout = git clone 'git@github.com:mamachanko/osx-home.git' 'osx-home'
+
+[workspace/ankify]
+checkout = git clone 'git@github.com:mamachanko/ankify.git' 'ankify'
+
+[workspace/personal]
+checkout = git clone 'git@github.com:mamachanko/personal.git' 'personal'

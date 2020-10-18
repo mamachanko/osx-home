@@ -8,11 +8,12 @@ brew "direnv"
 brew "fzf"
 brew "gh"
 brew "jq"
+brew "mr"
 brew "neovim"
+brew "pyenv"
 brew "shellcheck"
 brew "tmux"
 brew "tree"
-brew "pyenv"
 
 cask '1password'
 cask '1password-cli'

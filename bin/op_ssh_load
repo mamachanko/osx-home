@@ -8,7 +8,7 @@ ssh_key="$(
   | base64 --decode
 )"
 
-ssh-add - <<< "$ssh_key"
+ssh-add - <<< $ssh_key
 
 ssh -T git@github.com
 

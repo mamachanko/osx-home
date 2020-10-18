@@ -17,32 +17,32 @@ configure_bash() {
 }
 
 configure_env() {
-  source ~/vendor/bash/colours.bash
-  source ~/vendor/bash/git-completion.bash
+  source ~/.vendor/bash/colours.bash
+  source ~/.vendor/bash/git-completion.bash
 
-  LANG=en_US.UTF-8
-  EDITOR=nvim
-  LESS=-Ri
+  export LANG=en_US.UTF-8
+  export EDITOR=nvim
+  export LESS=-Ri
 
   # Do not immediately quit the shell on C-d, but only after the third time.
-  IGNOREEOF=2
+  export IGNOREEOF=2
 
-  # Include my scripts in PATH. I keep my script in ~/bin.
-  PATH="$HOME/workspace/osx-home/bin:$HOME/go/bin:$PATH"
+  # Include my personal scripts in PATH.
+  export PATH="$HOME/workspace/osx-home/bin:$HOME/go/bin:$PATH"
 
-  # Set TERM='xterm-256color' get proper color support in Vim and other
+  # Set TERM='xterm-256color' to get proper color support in Vim and other
   # applications.
-  TERM='xterm-256color'
+  export TERM='xterm-256color'
 
   # This erases duplicates in the command history, keeps 10k entris, and
   # appends to the history file rather than overwriting it.
-  HISTCONTROL=ignoredups:erasedups
-  HISTSIZE=10000
-  PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+  export HISTCONTROL=ignoredups:erasedups
+  export HISTSIZE=10000
+  export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
   shopt -s histappend
 
-  LSCOLORS="GxFxCxDxBxEgEdabagacad"
-  GREP_OPTIONS="--color"
+  export LSCOLORS="GxFxCxDxBxEgEdabagacad"
+  export GREP_OPTIONS="--color"
 }
 
 configure_aliases() {

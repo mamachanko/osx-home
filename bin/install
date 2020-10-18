@@ -5,25 +5,19 @@ set -euo pipefail
 cd "$(dirname "$0")"/..
 
 main() {
-  echo
-  echo "👷 installing ..."
-  echo
+  say "installing ..."
 
-  setup_macos
+  install_all
+  configure_all
 
+  say "done installing."
+}
+
+install_all() {
   install_config
   install_homebrew
   install_software
   install_kitty_themes
-
-  setup_tmux
-  setup_fzf
-  setup_neovim
-  setup_git
-
-  echo
-  echo "👷 done installing. ✅"
-  echo
 }
 
 install_config() {
@@ -32,89 +26,89 @@ install_config() {
   homedir_source=$(pwd)
   dotfiles_dir="${homedir_source}/dotfiles"
 
-  if [[ ! -L ~/.config ]]; then
-    ln -sFfv "${dotfiles_dir}/dot.config" ~/.config
-  fi
-
-  ln -sfv "${homedir_source}/vendor" ~/vendor
-
-  ln -sfv "${dotfiles_dir}/dot.profile" ~/.profile
-  ln -sfv "${dotfiles_dir}/dot.bashrc" ~/.bashrc
-  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+  for dot_item in $(/bin/ls "$dotfiles_dir"); do
+    link_target="$HOME/.${dot_item}"
+    rm -f "$link_target"
+    ln -sfv "${dotfiles_dir}/${dot_item}" "$link_target"
+  done
 }
 
-setup_macos() {
-  set_bash_as_shell
-  set_keyrepeat
-  set_dock_preferences
-  set_tap_to_click
+configure_all() {
+  configure_macos
+  configure_tmux
+  configure_fzf
+  configure_neovim
+  configure_git
 }
 
-set_bash_as_shell() {
-  if echo "$SHELL" | grep bash; then
-    echo setting Bash
+configure_macos() {
+  configure_bash_as_shell
+  configure_keyrepeat
+  configure_dock_preferences
+  configure_tap_to_click
+  configure_host
+}
+
+configure_bash_as_shell() {
+  if ! echo "$SHELL" | grep bash; then
+    say "configuring Bash as default shell"
     chsh -s /bin/bash
   else
-    echo Bash is already set
+    say "Bash is already configured as default shell"
   fi
 }
 
-set_keyrepeat() {
+configure_keyrepeat() {
    defaults write NSGlobalDomain KeyRepeat -int 2
    defaults write NSGlobalDomain InitialKeyRepeat -int 25
    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 }
 
-set_dock_preferences() {
+configure_dock_preferences() {
   defaults write "com.apple.dock" "orientation" -string "left"
   defaults write "com.apple.dock" "autohide" -bool "true"
   defaults write "com.apple.dock" "persistent-apps" -array
   killall Dock
 }
 
-set_tap_to_click() {
+configure_tap_to_click() {
   defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
   defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
   defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
   defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 }
 
+configure_host() {
+  # TODO
+  # configure_hostname "$(1pwd repave_creds --hostname)"
+  :
+}
+
 install_homebrew() {
   if [[ $(brew --version 2>/dev/null) ]]; then
-    echo
-    echo "🍺 updating homebrew ..."
-    echo
+    say "🍺 updating homebrew ..."
     brew update
   else
-    echo
-    echo "🍺 installing homebrew ..."
-    echo
+    say "🍺 installing homebrew ..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    echo
-    echo "✅ installed homebrew."
+    say "✅ installed homebrew."
   fi
 }
 
 install_software() {
-  echo
-  echo "  will brew install:"
-  echo
+  say "will brew install:"
   brew bundle list --all --file=~/.config/osx-home/Brewfile
-  echo
-  echo "  let's brew"
-  echo
+  say "let's brew"
   brew bundle install --file=~/.config/osx-home/Brewfile
   brew bundle check --file=~/.config/osx-home/Brewfile
-  echo
-  echo "  done brewing"
-  echo
+  say "done brewing"
 }
 
 install_kitty_themes() {
   bin/kitty_theme install
 }
 
-setup_tmux() {
+configure_tmux() {
   rm -rf ~/.tmux
   curl -fsSL https://raw.githubusercontent.com/luan/tmuxfiles/master/install | bash
   cat <<EOF >> ~/.tmux.conf 
@@ -125,7 +119,7 @@ set-option -g default-shell /usr/local/bin/bash
 EOF
 }
 
-setup_fzf() {
+configure_fzf() {
   "$(brew --prefix)/opt/fzf/install" \
     --completion \
     --key-bindings \
@@ -133,24 +127,33 @@ setup_fzf() {
     --no-fish
 }
 
-setup_neovim() {
-  echo
-  echo "📝 setting up neovim ..."
-  echo
+configure_neovim() {
+  say "configuring neovim ..."
+
   python3 -m pip install --upgrade pip
   python3 -m pip install --upgrade pynvim
 
   nvim -c "PlugInstall" -c "qall" --headless
   nvim -c "PlugUpdate" -c "qall" --headless
   nvim -c "UpdateRemotePlugins" -c "qall" --headless
-  echo
-  echo "✅ set up neovim."
-  echo
+
+  say "done configuring neovim."
 }
 
-setup_git() {
+configure_git() {
+  git remote set-url origin git@github.com:mamachanko/osx-home.git
   git config --global user.name "mamachanko"
   git config --global user.email "bfahc2cbv@relay.firefox.com"
+}
+
+say() {
+  local message
+
+  message=${1:=""}
+
+  echo
+  echo "  $message"
+  echo
 }
 
 main
