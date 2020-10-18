@@ -21,6 +21,9 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " See: https://www.python.org/dev/peps/pep-0008/
 Plug 'Vimjas/vim-python-pep8-indent'
 
+" Provide linting. Especially nice for better shell scripts through shellcheck.
+Plug 'dense-analysis/ale'
+
 call plug#end()
 " }}
 
