@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  local command
+  command=${1:-help}
+
+  case $command in
+    list) list_notes;;
+    edit) shift 1; edit_notes "$@";;
+    help) help;;
+  esac
+}
+
+list_notes() {
+  /bin/ls "$(checkout)/notes" \
+    | xargs -n1 -I% basename % .md
+}
+
+edit_notes() {
+  local note_topic note_file
+
+  note_topic="${1:?}"
+  note_file="notes/${note_topic}.md"
+
+  (
+    cd "$(checkout)"
+    "$EDITOR" "$note_file"
+    git add "$note_file"
+    git commit -m "Update notes on $note_topic"
+    git push
+  )
+}
+
+checkout() {
+  tmp_dir=$(mktemp -d)
+  git clone git@github.com:mamachanko/personal.git "$tmp_dir" 2> /dev/null
+  echo "$tmp_dir"
+}
+
+help() {
+  echo "usage: $0 [ help | list | edit [ FILE ] ]"
+  exit 1
+}
+
+main "$@"
+
