@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  local command
+  command=${1:-help}
+
+  case $command in
+    help) help;;
+  esac
+}
+
+help() {
+  echo "usage: $0 [ help ]"
+  exit 1
+}
+
+main "$@"
+
