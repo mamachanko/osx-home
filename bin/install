@@ -18,6 +18,7 @@ install_all() {
   install_homebrew
   install_software
   install_kitty_themes
+  install_python
 }
 
 install_config() {
@@ -108,6 +109,10 @@ install_kitty_themes() {
   bin/kitty_theme install
 }
 
+install_python() {
+  pyenv install --skip-existing 3.9.0
+}
+
 configure_tmux() {
   rm -rf ~/.tmux
   curl -fsSL https://raw.githubusercontent.com/luan/tmuxfiles/master/install | bash
@@ -130,8 +135,9 @@ configure_fzf() {
 configure_neovim() {
   say "configuring neovim ..."
 
-  python3 -m pip install --upgrade pip
-  python3 -m pip install --upgrade pynvim
+  PATH="$(pyenv root)/shims:$PATH"
+  python -m pip install --upgrade pip
+  python -m pip install --upgrade pynvim
 
   nvim -c "PlugInstall" -c "qall" --headless
   nvim -c "PlugUpdate" -c "qall" --headless
