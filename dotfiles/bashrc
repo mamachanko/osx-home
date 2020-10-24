@@ -47,6 +47,7 @@ configure_env() {
 
 configure_aliases() {
   alias vim=nvim
+  alias v='vim .'
   alias ls='ls -Glah'
   alias ll='ls'
 }
