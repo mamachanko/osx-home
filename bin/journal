@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+: "${JOURNAL_REPO:="git@github.com:mamachanko/personal.git"}"
+: "${JOURNAL_TEMPLATE:="journal/_template.md"}"
+
+main() {
+  local command
+  command=${1:-help}
+
+  case $command in
+    list) list_journals;;
+    edit) shift 1; edit_journal "$@";;
+    help) help;;
+  esac
+}
+
+list_journals() {
+  /bin/ls "$(checkout)/journal" \
+    | xargs -n1 -I% basename % .md
+}
+
+edit_journal() {
+  local journal_date journal_file
+
+  journal_date="${1:-$(today)}"
+  journal_file="journal/${journal_date}.md"
+
+  (
+    cd "$(checkout)"
+
+    if [[ ! -f $journal_file ]]; then 
+        sed "s/^# .*/# $journal_date/" "$JOURNAL_TEMPLATE" \
+        > "$journal_file"
+    fi
+
+    "$EDITOR" "$journal_file"
+    git add "$journal_file"
+    git commit --message "Update journal for $journal_date"
+    git push
+  )
+}
+
+today() {
+  date "+%d-%m-%Y"
+}
+
+checkout() {
+  tmp_dir=$(mktemp -d)
+  git clone "$JOURNAL_REPO" "$tmp_dir" 2> /dev/null
+  echo "$tmp_dir"
+}
+
+help() {
+  echo "usage: $0 [ help | list | edit [ DATE? ] ]"
+  exit 1
+}
+
+main "$@"
+
