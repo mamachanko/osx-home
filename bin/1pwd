@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  local command=${1:-help}
+
+  case $command in
+    init) init;;
+    get)
+      ensure_logged_in
+      shift 1
+      get_item "$@"
+      ;;
+    *) help;;
+  esac
+}
+
+init() {
+  if [[ -f ~/.config/.op/config ]]; then
+    echo "Already initialized."
+  else
+    op signin my.1password.com sugardubz@gmail.com
+  fi
+}
+
+get_item() {
+  local item_name item_field result;
+
+  item_name=${1:?}
+  item_field_name=${2:-""}
+  result=""
+
+  item=$(op get item "$item_name")
+
+  if [[ -z "$item_field_name" ]]; then
+    result=$(echo "$item" | jq .)
+  else
+    item_field=$(echo "$item" \
+      | jq --raw-output ".details.sections[]
+          | select(.fields)
+          | .fields[]
+          | select(.t == \"${item_field_name}\")
+          | .v")
+
+    if [[ -z "$item_field" ]]; then
+      item_field=$(echo "$item" \
+        | jq --raw-output ".details
+            | select(.fields)
+            | .fields[]
+            | select(.name == \"${item_field_name}\")
+            | .value")
+    fi
+
+    result="$item_field"
+  fi
+
+  echo "$result"
+}
+
+ensure_logged_in() {
+  if ! op list vaults > /dev/null; then
+    eval "$(op signin my)"
+  fi
+}
+
+help() {
+  echo "usage: $0 get [ NAME ] [ FIELD ]"
+}
+
+main "$@"
+

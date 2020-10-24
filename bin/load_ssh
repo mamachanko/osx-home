@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+decoded_ssh_key=$(1pwd get SSH "base64 encoded private key" | base64 --decode)
+
+ssh-add -t 3600 - <<< "$decoded_ssh_key"
+
+ssh -T git@github.com
+
