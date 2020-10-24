@@ -110,7 +110,10 @@ install_kitty_themes() {
 }
 
 install_python() {
-  pyenv install --skip-existing 3.9.0
+  python_version=3.9.0
+  pyenv install --skip-existing "$python_version"
+  pyenv global "$python_version"
+
 }
 
 configure_tmux() {
