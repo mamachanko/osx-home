@@ -35,11 +35,16 @@ install_config() {
 }
 
 configure_all() {
+  configure_1pwd
   configure_macos
   configure_tmux
   configure_fzf
   configure_neovim
   configure_git
+}
+
+configure_1pwd() {
+  bin/1pwd init
 }
 
 configure_macos() {
