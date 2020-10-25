@@ -44,7 +44,7 @@ configure_all() {
 }
 
 configure_1pwd() {
-  bin/1pwd init
+  eval "$(bin/1pwd init)"
 }
 
 configure_macos() {
@@ -85,9 +85,8 @@ configure_tap_to_click() {
 }
 
 configure_host() {
-  # TODO
-  # configure_hostname "$(1pwd repave_creds --hostname)"
-  :
+  hostname="$(1pwd get "$(1pwd latest-repave)" hostname)"
+  set_hostname "$hostname"
 }
 
 install_homebrew() {

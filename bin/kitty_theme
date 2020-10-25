@@ -45,7 +45,7 @@ get_or_update_kitty_themes() {
   else
     git clone \
       --depth 1 \
-      git@github.com:dexpota/kitty-themes.git \
+      "https://github.com/dexpota/kitty-themes.git" \
       "$KITTY_THEMES_DIR"
   fi
 }

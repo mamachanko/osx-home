@@ -7,21 +7,55 @@ main() {
 
   case $command in
     init) init;;
+    login) login;;
+    list)
+      ensure_logged_in
+      list_items
+      ;;
+    find)
+      ensure_logged_in
+      shift
+      find_items "$@"
+      ;;
     get)
       ensure_logged_in
-      shift 1
+      shift
       get_item "$@"
+      ;;
+    latest-repave)
+      ensure_logged_in
+      get_latest_repave
       ;;
     *) help;;
   esac
 }
 
+ensure_logged_in() {
+  if ! op list vaults > /dev/null; then
+    eval "$(op signin my)"
+  fi
+}
+
 init() {
-  if [[ -f ~/.config/.op/config ]]; then
+  if [[ -f ~/.op/config ]]; then
     echo "Already initialized."
   else
     op signin my.1password.com sugardubz@gmail.com
   fi
+}
+
+login() {
+  op signin my
+}
+
+list_items() {
+  op list items | jq --raw-output '.[] | .overview.title'
+}
+
+find_items() {
+  local pattern="${1:?}"
+
+  list_items | grep -i "$pattern"
 }
 
 get_item() {
@@ -58,10 +92,8 @@ get_item() {
   echo "$result"
 }
 
-ensure_logged_in() {
-  if ! op list vaults > /dev/null; then
-    eval "$(op signin my)"
-  fi
+get_latest_repave() {
+  find_items repave | sort | tail -n1
 }
 
 help() {
