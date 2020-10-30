@@ -19,10 +19,10 @@ brew "watch"
 cask '1password'
 cask '1password-cli'
 cask 'anki'
+cask 'brave-browser'
 cask 'docker'
-cask 'firefox'
 cask 'google-backup-and-sync'
 cask 'kitty'
-cask 'notion'
 cask 'shiftit'
 cask 'spotify'
+
