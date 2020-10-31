@@ -4,7 +4,9 @@ set -euo pipefail
 
 decoded_ssh_key=$(1pwd get SSH "base64 encoded private key" | base64 --decode)
 
-ssh-add -t 3600 - <<< "$decoded_ssh_key"
+ttl="$((60 * 60 * 8))" # 8 hrs
+
+ssh-add -t $ttl - <<< "$decoded_ssh_key"
 
 ssh -T git@github.com
 
