@@ -37,8 +37,8 @@ ensure_logged_in() {
 }
 
 init() {
-  if [[ -f ~/.op/config ]]; then
-    echo "Already initialized."
+  if [[ -f ~/.config/op/config ]]; then
+    echo echo "Already initialized."
   else
     op signin my.1password.com sugardubz@gmail.com
   fi
