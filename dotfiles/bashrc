@@ -44,6 +44,12 @@ configure_env() {
 
   export LSCOLORS="GxFxCxDxBxEgEdabagacad"
   export GREP_OPTIONS="--color"
+
+  # Do not show Macos' Bash deprecation warning.
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+
+  # Configure readline to use VI key bindings.
+  set -o vi
 }
 
 configure_aliases() {
