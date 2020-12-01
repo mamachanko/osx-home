@@ -105,12 +105,13 @@ set_theme() {
 
 try_theme() {
   local theme=${1:?}
+  local command=${2:-""}
 
   ensure_themes_installed
 
   # Start a new instance of kitty with the given theme.
   # https://github.com/dexpota/kitty-themes#previews
-  kitty -o include="$KITTY_THEMES_DIR/themes/$theme.conf"
+  kitty -o include="$KITTY_THEMES_DIR/themes/$theme.conf" $command
 }
 
 main $@
