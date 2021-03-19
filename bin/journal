@@ -31,7 +31,7 @@ edit_journal() {
     cd "$(checkout)"
 
     if [[ ! -f $journal_file ]]; then 
-        sed "s/^# .*/# $journal_date/" "$JOURNAL_TEMPLATE" \
+        sed "s/^# \d*/# $journal_date/" "$JOURNAL_TEMPLATE" \
         > "$journal_file"
     fi
 
