@@ -16,14 +16,15 @@ brew "tmux"
 brew "tree"
 brew "watch"
 brew "exa"
+brew "bat"
 
-cask '1password'
-cask '1password-cli'
-cask 'anki'
-cask 'brave-browser'
-cask 'docker'
-cask 'gnucash'
-cask 'google-backup-and-sync'
-cask 'kitty'
-cask 'shiftit'
-cask 'spotify'
+cask "1password"
+cask "1password-cli"
+cask "anki"
+cask "brave-browser"
+cask "docker"
+cask "gnucash"
+cask "google-backup-and-sync"
+cask "kitty"
+cask "shiftit"
+cask "spotify"
