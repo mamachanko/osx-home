@@ -15,6 +15,7 @@ brew "shellcheck"
 brew "tmux"
 brew "tree"
 brew "watch"
+brew "exa"
 
 cask '1password'
 cask '1password-cli'
