@@ -31,15 +31,32 @@ edit_journal() {
     cd "$(checkout)"
 
     if [[ ! -f $journal_file ]]; then 
-        sed "s/^# \d*/# $journal_date/" "$JOURNAL_TEMPLATE" \
-        > "$journal_file"
-    fi
+      echo creating new journal
+      create_new_journal "$journal_file"
+    fi;
 
-    "$EDITOR" "$journal_file"
-    git add "$journal_file"
-    git commit --message "Update journal for $journal_date"
-    git push
+    echo editing exising journal
+    edit_existing_journal "$journal_file"
   )
+}
+
+create_new_journal() {
+  local journal_file
+
+  journal_file="${1:?journal_file as 1st arg missing}"
+
+  cp "$JOURNAL_TEMPLATE" "$1"
+}
+
+edit_existing_journal() {
+  local journal_file
+
+  journal_file="${1:?journal_file as 1st arg missing}"
+
+  "$EDITOR" "$journal_file"
+  git add "$journal_file"
+  git commit --message "Update journal"
+  git push
 }
 
 today() {
