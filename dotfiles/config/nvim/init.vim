@@ -72,7 +72,7 @@ set infercase
 
 " Use the OneDark colorscheme for Vim in general and air-line.
 " See: https://github.com/joshdick/onedark.vim
-colorscheme onedark
+"colorscheme onedark
 " See: https://github.com/joshdick/onedark.vim#vim-airline-theme
 let g:airline_theme='onedark'
 " Do not show the default statusline since air-line is present.
