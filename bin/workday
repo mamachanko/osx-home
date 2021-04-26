@@ -32,6 +32,7 @@ start() {
   echo
 
   wifi on
+  blueutil --power 1
   start_apps
 
   echo
@@ -45,9 +46,13 @@ end() {
   echo
 
   stop_apps
+  blueutil --power 0
   wifi off
 
   echo "👷 All systems down. Have a pleasant evening!"
+  echo
+  echo -e "\033[47m🎧\033[0m Don't forget to charge your Bluetooth headset."
+
   echo
 }
 

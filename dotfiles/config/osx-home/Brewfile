@@ -17,6 +17,7 @@ brew "tree"
 brew "watch"
 brew "exa"
 brew "bat"
+brew "blueutil"
 
 cask "1password"
 cask "1password-cli"
