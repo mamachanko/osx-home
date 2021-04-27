@@ -1,0 +1,27 @@
+[github]
+  name = mamachanko
+
+[commit]
+  gpgSign = true
+
+[core]
+  editor = vim
+
+[alias]
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[gpg]
+	program = gpg
+[user]
+	signingkey = CB7D1629DFDB41A59E54C5395B79E81F346C8D5E
+	name = Max Brauer
+	email = mbrauer@vmware.com
