@@ -50,6 +50,9 @@ configure_env() {
 
   # Configure readline to use VI key bindings.
   set -o vi
+
+  # Make GPG happy
+  export GPG_TTY=$(tty)
 }
 
 configure_aliases() {

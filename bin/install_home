@@ -85,7 +85,7 @@ configure_tap_to_click() {
 }
 
 configure_host() {
-  hostname="$(bin/1pwd get "$(/bin1pwd latest-repave)" hostname)"
+  hostname="$(bin/1pwd get "$(bin/1pwd latest-repave)" hostname)"
   set_hostname "$hostname"
 }
 
