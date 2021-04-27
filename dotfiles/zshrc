@@ -36,3 +36,7 @@ PS1="%{$fg[yellow]%}%n@%m %~ %{$reset_color%}%\> "
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias pracvim='gh gist edit 6f7338bc12924126ef0a60bb6a627be4 --filename practical_vim.md'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/mbrauer/.sdkman"
+[[ -s "/Users/mbrauer/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mbrauer/.sdkman/bin/sdkman-init.sh"

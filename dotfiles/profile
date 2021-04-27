@@ -1,7 +1,15 @@
+echo "sourcing .profile"
+
 # Hide the Bash deprecation warning on newer versions of macOS.
 # See: https://support.apple.com/en-gb/HT208050
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Load the Bash configuration.
 source ~/.bashrc
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/mbrauer/.sdkman"
+[[ -s "/Users/mbrauer/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mbrauer/.sdkman/bin/sdkman-init.sh"
+
+echo "sourcing .profile done"
 

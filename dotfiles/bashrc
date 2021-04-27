@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "sourcing .bashrc"
+
 set -o pipefail
 
 main() {
@@ -29,7 +31,12 @@ configure_env() {
   export IGNOREEOF=2
 
   # Include my personal scripts in PATH.
-  export PATH="$HOME/workspace/osx-home/bin:$(pyenv root)/shims:$HOME/go/bin:$PATH"
+  PATH="$HOME/bin:$PATH"
+  PATH="$HOME/workspace/osx-home/bin:$PATH"
+  PATH="/usr/local/bin:$PATH"
+  PATH="$HOME/go/bin:$PATH"
+  PATH="$(pyenv root)/shims:$PATH"
+  export PATH
 
   # Set TERM='xterm-256color' to get proper color support in Vim and other
   # applications.
@@ -103,3 +110,4 @@ configure_pyenv() {
 
 main
 
+echo "sourcing .bashrc done"
