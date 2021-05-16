@@ -69,11 +69,14 @@ configure_aliases() {
   alias ls='exa -la'
   alias ll='ls'
 
+  alias watch='watch '
+
   alias cat=bat
 
   source <(kubectl completion bash)
   alias k=kubectl
   alias kn='kubectl config set-context --current --namespace '
+  alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
