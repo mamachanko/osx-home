@@ -1,0 +1,6 @@
+echo "sourcing .bash_profile"
+
+source ~/.bashrc
+
+echo "sourcing .bash_profile done"
+

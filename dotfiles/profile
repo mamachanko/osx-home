@@ -1,25 +1,5 @@
 echo "sourcing .profile"
 
-# Hide the Bash deprecation warning on newer versions of macOS.
-# See: https://support.apple.com/en-gb/HT208050
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
-export GO111MODULE=on
-
-export GIT_DUET_ROTATE_AUTHOR=1
-
-export PATH="/usr/local/opt/yq@3/bin:$PATH"
-
-# configure bash completion
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-__expand() {
-  return 0
-}
-
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-
-source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 echo "sourcing .profile done"
 

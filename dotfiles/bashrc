@@ -12,8 +12,6 @@ main() {
   configure_direnv
   configure_pyenv
 
-  source ~/.profile
-
   echo "sourcing .bashrc done"
 }
 
@@ -22,11 +20,16 @@ configure_bash() {
   configure_aliases
   configure_prompt
   configure_keys
-}
+
+
+  }
 
 configure_env() {
   source ~/.vendor/bash/colours.bash
   source ~/.vendor/bash/git-completion.bash
+  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
 
   export LANG=en_US.UTF-8
   export EDITOR=nvim
@@ -41,6 +44,7 @@ configure_env() {
   PATH="/usr/local/bin:$PATH"
   PATH="$HOME/go/bin:$PATH"
   PATH="$(pyenv root)/shims:$PATH"
+  PATH="/usr/local/opt/yq@3/bin:$PATH" # so that yq version 3 is used
   export PATH
 
   # Set TERM='xterm-256color' to get proper color support in Vim and other
@@ -57,7 +61,8 @@ configure_env() {
   export LSCOLORS="GxFxCxDxBxEgEdabagacad"
   export GREP_OPTIONS="--color"
 
-  # Do not show Macos' Bash deprecation warning.
+  # Hide the Bash deprecation warning on newer versions of macOS.
+  # See: https://support.apple.com/en-gb/HT208050
   export BASH_SILENCE_DEPRECATION_WARNING=1
 
   # Configure readline to use VI key bindings.
@@ -65,6 +70,10 @@ configure_env() {
 
   # Make GPG happy
   export GPG_TTY=$(tty)
+
+  export GO111MODULE=on
+  export GIT_DUET_ROTATE_AUTHOR=1
+
 }
 
 configure_aliases() {
@@ -120,3 +129,9 @@ configure_pyenv() {
 
 main
 
+# configure bash completion
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+__expand() {
+  return 0
+}
+export -f __expand
