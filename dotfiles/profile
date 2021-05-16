@@ -7,7 +7,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export GO111MODULE=on
 
 export GIT_DUET_ROTATE_AUTHOR=1
-j
+
 export PATH="/usr/local/opt/yq@3/bin:$PATH"
 
 # configure bash completion

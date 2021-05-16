@@ -78,9 +78,11 @@ configure_aliases() {
 
   alias cat=bat
 
+  # Kubernetes
   source <(kubectl completion bash)
   alias k=kubectl
   alias kn='kubectl config set-context --current --namespace '
+  alias kc='kubectl cluster-info --context '
   alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
