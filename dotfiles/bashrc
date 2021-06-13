@@ -132,6 +132,21 @@ vag() {
   vim "$files"
 }
 
+saferbash() {
+  local filename
+  filename="${1:?}"
+  cat <<EOF > "$filename"
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "\$(dirname "\$0")"
+
+EOF
+  chmod +x "$filename"
+  vim "$filename"
+}
+
 __expand() {
   return 0
 }
