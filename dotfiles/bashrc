@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 set -o pipefail
 
 main() {
@@ -18,11 +17,11 @@ main() {
 configure_bash() {
   configure_env
   configure_aliases
+  configure_functions
   configure_prompt
   configure_keys
-
-
-  }
+  configure_functions
+}
 
 configure_env() {
   source ~/.vendor/bash/colours.bash
@@ -44,7 +43,6 @@ configure_env() {
   PATH="/usr/local/bin:$PATH"
   PATH="$HOME/go/bin:$PATH"
   PATH="$(pyenv root)/shims:$PATH"
-  PATH="/usr/local/opt/yq@3/bin:$PATH" # so that yq version 3 is used
   export PATH
 
   # Set TERM='xterm-256color' to get proper color support in Vim and other
@@ -74,11 +72,16 @@ configure_env() {
   export GO111MODULE=on
   export GIT_DUET_ROTATE_AUTHOR=1
 
+  # fzf
+  export FZF_DEFAULT_COMMAND='fd --type f --type d --hidden --follow --exclude=.git --exclude=.idea --exclude=.vscode --exclude=.sass-cache --exclude=node_modules --exclude=build --exclude=Library'
+  # Use ~~ as the trigger sequence instead of the default **
+  export FZF_COMPLETION_TRIGGER='~~'
+  # Options to fzf command
+  export FZF_COMPLETION_OPTS="--border --info=inline --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 }
 
 configure_aliases() {
   alias vim=nvim
-  alias v='vim .'
 
   alias ls='exa -la'
   alias ll='ls'
@@ -87,19 +90,25 @@ configure_aliases() {
 
   alias cat=bat
 
+  source <(yq shell-completion bash)
+
   # Kubernetes
   source <(kubectl completion bash)
   alias k=kubectl
   alias kn='kubectl config set-context --current --namespace '
   alias kc='kubectl cluster-info --context '
   alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
+  alias kw="watch 'kubectx -c && kubens -c && kubectl get all,secrets,sa,ingress'"
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
+
+  # Docker
+  alias cleandocker="docker system prune --force --all --volumes && docker network prune --force"
 }
 
 configure_prompt() {
-  source $(which prompt)
+  source "$(which prompt)"
 }
 
 configure_keys() {
@@ -108,6 +117,29 @@ configure_keys() {
   bind '"\e[B": history-search-forward'
   bind '"\eOA": history-search-backward'
   bind '"\eOB": history-search-forward'
+}
+
+# Functions
+v() {
+  local file
+  file=$(fzf)
+  nvim "$file"
+}
+
+vag() {
+  local files
+  files=$(ag -l "$1" "${2:=.}")
+  vim "$files"
+}
+
+__expand() {
+  return 0
+}
+
+configure_functions() {
+  export -f v
+  export -f vag
+  export -f __expand
 }
 
 configure_direnv() {
@@ -127,11 +159,8 @@ configure_pyenv() {
   eval "$(pyenv virtualenv-init -)"
 }
 
+# configure bash completion
+#[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
 main
 
-# configure bash completion
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-__expand() {
-  return 0
-}
-export -f __expand

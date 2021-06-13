@@ -24,6 +24,10 @@ Plug 'Vimjas/vim-python-pep8-indent'
 " Provide linting. Especially nice for better shell scripts through shellcheck.
 Plug 'dense-analysis/ale'
 
+" Fzf for fuzzy finding files
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
+
 call plug#end()
 " }}
 
@@ -42,9 +46,8 @@ set wildmode=longest,list,full
 
 set backspace=indent,eol,start
 
-" Show hybrid line numbers.
+" Show line numbers.
 set number
-set relativenumber
 
 " Configure identation.
 set autoindent
@@ -81,3 +84,5 @@ set noshowmode
 
 " Enable syntax highlighting.
 syntax on
+
+nmap <C-p> :FZF<CR>
