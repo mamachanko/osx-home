@@ -86,7 +86,7 @@ configure_aliases() {
   alias ls='exa -la'
   alias ll='ls'
 
-  alias watch='watch '
+  alias watch='watch -c '
 
   alias cat=bat
 
@@ -98,7 +98,7 @@ configure_aliases() {
   alias kn='kubectl config set-context --current --namespace '
   alias kc='kubectl cluster-info --context '
   alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
-  alias kw="watch 'kubectx -c && kubens -c && kubectl get all,secrets,sa,ingress'"
+  alias kw="watch kmonitor"
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
@@ -147,11 +147,19 @@ EOF
   vim "$filename"
 }
 
+kmonitor() {
+  printf '\x1b[34mContext: \x1b[1m%s\x1b[0m\n' "$(kubectx --current)"
+  printf '\x1b[34mNamespace: \x1b[1m%s\x1b[0m\n' "$(kubens --current)"
+  echo
+  kubectl get all,secrets,sa,ingress
+}
+
 __expand() {
   return 0
 }
 
 configure_functions() {
+  export -f kmonitor
   export -f v
   export -f vag
   export -f __expand
