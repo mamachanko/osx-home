@@ -85,6 +85,7 @@ configure_env() {
   eval "$(zoxide init bash)"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+  source ~/.config/broot/launcher/bash/br
 }
 
 configure_aliases() {
@@ -101,7 +102,7 @@ configure_aliases() {
 
   alias cat=bat
 
-  alias tree='tree -a '
+  alias tree='br'
 
   source <(yq shell-completion bash)
 

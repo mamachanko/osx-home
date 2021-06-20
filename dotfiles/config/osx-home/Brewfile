@@ -3,6 +3,7 @@ tap "homebrew/cask"
 
 brew "ag"
 brew "bash"
+brew "broot"
 brew "bash-completion"
 brew "bat"
 brew "blueutil"
