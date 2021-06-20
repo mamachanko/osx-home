@@ -101,6 +101,8 @@ configure_aliases() {
 
   alias cat=bat
 
+  alias tree='tree -a '
+
   source <(yq shell-completion bash)
 
   # Kubernetes

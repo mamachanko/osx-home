@@ -142,6 +142,14 @@ configure_fzf() {
 configure_neovim() {
   say "configuring neovim ..."
 
+  echo "installing vim-plug ..."
+  curl \
+    --create-dirs \
+    --location \
+    --fail \
+    --output ~/.config/nvim/autoload/plug.vim \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
   PATH="$(pyenv root)/shims:$PATH"
   python -m pip install --upgrade pip
   python -m pip install --upgrade pynvim
