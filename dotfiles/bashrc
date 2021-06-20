@@ -53,7 +53,12 @@ configure_env() {
   export HISTCONTROL=ignoredups:erasedups
   export HISTSIZE=10000
   export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+  # Does not work as expected
+  # https://unix.stackexchange.com/questions/109032/how-to-get-a-history-entry-to-properly-display-on-multiple-lines
+  export HISTTIMEFORMAT='%F %T '
   shopt -s histappend
+  shopt -s cmdhist
+  shopt -s lithist
 
   export LSCOLORS="GxFxCxDxBxEgEdabagacad"
   export GREP_OPTIONS="--color"
