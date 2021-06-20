@@ -123,6 +123,7 @@ configure_aliases() {
   alias gds='git diff --staged'
   alias gap='git add -p'
   alias gc='git commit'
+  alias gm='vim ~/.gitcommitmessage'
 }
 
 configure_prompt() {
