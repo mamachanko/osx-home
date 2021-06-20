@@ -20,7 +20,6 @@ configure_bash() {
   configure_functions
   configure_prompt
   configure_keys
-  configure_functions
 }
 
 configure_env() {
@@ -158,11 +157,22 @@ __expand() {
   return 0
 }
 
+clientregistration() {
+  local name
+  name=${1:?}
+
+  set -x
+  kubectl get clientregistration "$name" --output yaml | yq e . -
+  kubectl get secret "$name" -ojsonpath='{.data}' | jq 'map_values(@base64d)'
+  set +x
+}
+
 configure_functions() {
   export -f kmonitor
   export -f v
   export -f vag
   export -f __expand
+  export -f clientregistration
 }
 
 configure_direnv() {
