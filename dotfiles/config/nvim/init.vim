@@ -25,8 +25,8 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'dense-analysis/ale'
 
 " Fzf for fuzzy finding files
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 " }}
@@ -85,4 +85,4 @@ set noshowmode
 " Enable syntax highlighting.
 syntax on
 
-nmap <C-p> :FZF<CR>
+nmap <C-p> :Files<CR>
