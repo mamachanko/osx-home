@@ -7,9 +7,6 @@ main() {
 
   configure_bash
   configure_kitty
-  configure_fuzzyfinder
-  configure_direnv
-  configure_pyenv
 
   echo "sourcing .bashrc done"
 }
@@ -76,15 +73,23 @@ configure_env() {
   export GO111MODULE=on
   export GIT_DUET_ROTATE_AUTHOR=1
 
-  # fzf
+  # Fuzzyfinder fzf
+  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
   export FZF_DEFAULT_COMMAND='fd --type f --type d --hidden --follow --exclude=.git --exclude=.idea --exclude=.vscode --exclude=.sass-cache --exclude=node_modules --exclude=build --exclude=Library'
   # Use ~~ as the trigger sequence instead of the default **
   export FZF_COMPLETION_TRIGGER='~~'
   # Options to fzf command
   export FZF_COMPLETION_OPTS="--border --info=inline --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
+  eval "$(direnv hook bash)"
+  eval "$(zoxide init bash)"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 }
 
 configure_aliases() {
+  unalias -a
+
   alias s='source ~/.bashrc'
 
   alias vim=nvim
@@ -111,7 +116,7 @@ configure_aliases() {
   complete -F __start_kubectl k
 
   # Docker
-  alias cleandocker="docker system prune --force --all --volumes && docker network prune --force"
+  alias dockerclean="docker system prune --force --all --volumes && docker network prune --force"
 
   # Git
   alias gs='git status'
@@ -195,25 +200,9 @@ configure_functions() {
   export -f clientregistration
 }
 
-configure_direnv() {
-  eval "$(direnv hook bash)"
-}
-
 configure_kitty() {
   source /dev/stdin <<<"$(kitty + complete setup bash)"
 }
-
-configure_fuzzyfinder() {
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-}
-
-configure_pyenv() {
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-}
-
-# configure bash completion
-#[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 main
 
