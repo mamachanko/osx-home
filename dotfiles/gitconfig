@@ -1,15 +1,10 @@
-[github]
-  name = mamachanko
-
-[commit]
-  gpgSign = true
-
 [core]
-  editor = vim
+  editor = nvim
 
 [alias]
   lol = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  st = status
 
 [color]
   branch = auto
@@ -18,10 +13,37 @@
   status = auto
 
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
+
+[commit]
+  gpgSign = true
+
 [gpg]
-	program = gpg
+  program = gpg
+
 [user]
-	signingkey = CB7D1629DFDB41A59E54C5395B79E81F346C8D5E
-	name = Max Brauer
-	email = mbrauer@vmware.com
+  signingkey = CB7D1629DFDB41A59E54C5395B79E81F346C8D5E
+  name = Max Brauer
+  email = mbrauer@vmware.com
+
+[github]
+  name = mamachanko
+
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+
