@@ -85,6 +85,8 @@ configure_env() {
 }
 
 configure_aliases() {
+  alias s='source ~/.bashrc'
+
   alias vim=nvim
 
   alias ls='exa -la'
@@ -102,6 +104,7 @@ configure_aliases() {
   alias kn='kubectl config set-context --current --namespace '
   alias kc='kubectl cluster-info --context '
   alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
+  alias kexec='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- '
   alias kw="watch kmonitor"
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
@@ -109,6 +112,17 @@ configure_aliases() {
 
   # Docker
   alias cleandocker="docker system prune --force --all --volumes && docker network prune --force"
+
+  # Git
+  alias gs='git status'
+  alias gsu='git stash -u'
+  alias gsp='git stash pop'
+  alias gpr='git pull -r'
+  alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
+  alias gd='git diff'
+  alias gds='git diff --staged'
+  alias gap='git add -p'
+  alias gc='git commit'
 }
 
 configure_prompt() {
