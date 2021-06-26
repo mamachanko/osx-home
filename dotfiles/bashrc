@@ -86,6 +86,9 @@ configure_env() {
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
   source ~/.config/broot/launcher/bash/br
+  eval "$(starship init bash)"
+
+  source ~/tools.sh
 }
 
 configure_aliases() {
@@ -185,22 +188,11 @@ __expand() {
   return 0
 }
 
-clientregistration() {
-  local name
-  name=${1:?}
-
-  set -x
-  kubectl get clientregistration "$name" --output yaml | yq e . -
-  kubectl get secret "$name" -ojsonpath='{.data}' | jq 'map_values(@base64d)'
-  set +x
-}
-
 configure_functions() {
   export -f kmonitor
   export -f v
   export -f vag
   export -f __expand
-  export -f clientregistration
 }
 
 configure_kitty() {

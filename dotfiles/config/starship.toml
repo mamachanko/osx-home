@@ -1,0 +1,29 @@
+add_newline = true
+
+format = """
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$kubernetes
+$jobs$character"""
+
+[character]
+format = "$symbol "
+success_symbol = "[❯](bold green)"
+error_symbol = "[✗](bold red)"
+
+[git_branch]
+symbol = "🐙 "
+format = "[$symbol$branch](green) "
+
+[kubernetes]
+disabled = false
+format = "☸️ [$context-namespace](yellow) "
+[kubernetes.context_aliases]
+"kind-kind" = "local"
+"gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-dal" = "dal"
+"gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-acceptance" = "pdx"
+
