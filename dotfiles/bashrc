@@ -64,9 +64,6 @@ configure_env() {
   # See: https://support.apple.com/en-gb/HT208050
   export BASH_SILENCE_DEPRECATION_WARNING=1
 
-  # Configure readline to use VI key bindings.
-  set -o vi
-
   # Make GPG happy
   export GPG_TTY=$(tty)
 
