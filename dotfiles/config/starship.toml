@@ -12,16 +12,19 @@ $jobs$character"""
 
 [character]
 format = "$symbol "
-success_symbol = "[❯](bold green)"
-error_symbol = "[✗](bold red)"
+success_symbol = "[❯](green)"
+error_symbol = "[✗](red)"
+
+[directory]
+format = "[ $path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
-symbol = "🐙 "
+symbol = " "
 format = "[$symbol$branch](green) "
 
 [kubernetes]
 disabled = false
-format = "☸️ [$context-namespace](yellow) "
+format = "[ $context/$namespace](purple dimmed) "
 [kubernetes.context_aliases]
 "kind-kind" = "local"
 "gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-dal" = "dal"

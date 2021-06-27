@@ -95,7 +95,7 @@ configure_aliases() {
 
   alias vim=nvim
 
-  alias ls='exa -la'
+  alias ls='exa -la --icons'
   alias ll='ls'
 
   alias watch='watch -c '
@@ -120,18 +120,6 @@ configure_aliases() {
 
   # Docker
   alias dockerclean="docker system prune --force --all --volumes && docker network prune --force"
-
-  # Git
-  alias gs='git status'
-  alias gsu='git stash -u'
-  alias gsp='git stash pop'
-  alias gpr='git pull -r'
-  alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
-  alias gd='git diff'
-  alias gds='git diff --staged'
-  alias gap='git add -p'
-  alias gc='git commit'
-  alias gm='vim ~/.gitcommitmessage'
 }
 
 configure_prompt() {

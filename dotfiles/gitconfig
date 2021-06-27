@@ -2,9 +2,20 @@
   editor = nvim
 
 [alias]
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  l = log --decorate --stat
+  ll = log --graph --decorate --pretty=oneline --abbrev-commit
+  lll = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  s = status --branch -s --untracked-files=all
   st = status
+  su = stash -u
+  sp = stash pop
+  pr = pull -r
+  d = diff
+  ds = diff --staged
+  ap = add --patch
+  c = commit
+  co = checkout
+  message = !$EDITOR ~/.gitcommitmessage
 
 [color]
   branch = auto
