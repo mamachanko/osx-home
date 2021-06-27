@@ -15,7 +15,6 @@ configure_bash() {
   configure_env
   configure_aliases
   configure_functions
-  configure_prompt
   configure_keys
 }
 
@@ -120,10 +119,6 @@ configure_aliases() {
 
   # Docker
   alias dockerclean="docker system prune --force --all --volumes && docker network prune --force"
-}
-
-configure_prompt() {
-  source "$(which prompt)"
 }
 
 configure_keys() {

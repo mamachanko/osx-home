@@ -1,11 +1,12 @@
 add_newline = true
+
 format = '''
 [┌](#99ff99) $hostname$directory$git_branch$git_commit$git_state$git_status$kubernetes
 [│](#99ff99) $jobs
 [└](#99ff99) $character'''
 
 [jobs]
-format = "[$symbol $number]($style) "
+format = '[$symbol $number]($style) '
 symbol = ''
 style = '#99ff99'
 
@@ -30,4 +31,3 @@ format = '[ $context/$namespace](#4db8ff) '
 kind-kind = 'local'
 gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-dal = 'dal'
 gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-acceptance = 'pdx'
-
