@@ -1,37 +1,33 @@
 add_newline = true
-
-format = """
-[┌](green) $hostname\
-$directory\
-$git_branch\
-$git_commit\
-$git_state\
-$git_status\
-$kubernetes
-[│](green)
-[└](green) $jobs$character"""
+format = '''
+[┌](#99ff99) $hostname$directory$git_branch$git_commit$git_state$git_status$kubernetes
+[│](#99ff99) $jobs
+[└](#99ff99) $character'''
 
 [jobs]
-symbol = ""
-style = "green"
+format = "[$symbol $number]($style) "
+symbol = ''
+style = '#99ff99'
 
 [character]
-format = "$symbol "
-success_symbol = "[❯](green)"
-error_symbol = "[✗](red)"
+format = '$symbol '
+success_symbol = '[❯](#99ff99)'
+error_symbol = '[✗](red)'
 
 [directory]
-format = "[ $path](117)[$read_only]($read_only_style) "
+format = '[ $path]($style)[$read_only]($read_only_style) '
+style = '#99ff99'
 
 [git_branch]
-symbol = " "
-format = "[$symbol$branch](green) "
+symbol = ' '
+format = '[$symbol$branch](#99ff99) '
 
 [kubernetes]
-disabled = false
-format = "[ $context/$namespace](225 dimmed) "
+disabled = true
+format = '[ $context/$namespace](#4db8ff) '
+
 [kubernetes.context_aliases]
-"kind-kind" = "local"
-"gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-dal" = "dal"
-"gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-acceptance" = "pdx"
+kind-kind = 'local'
+gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-dal = 'dal'
+gke_cf-identity-service-oak_us-west1-b_sso-for-k8s-acceptance = 'pdx'
 
