@@ -23,7 +23,7 @@ symbol = ' '
 format = '[$symbol$branch](#99ff99) '
 
 [kubernetes]
-disabled = true
+disabled = false
 format = '[ $context/$namespace](#4db8ff) '
 
 [kubernetes.context_aliases]
