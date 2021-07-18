@@ -110,9 +110,12 @@ configure_aliases() {
   alias k=kubectl
   alias kn='kubectl config set-context --current --namespace '
   alias kc='kubectl cluster-info --context '
-  alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
-  alias kexec='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- '
-  alias kw="watch kmonitor"
+  alias kdebug='kubectl run debug-shell --rm --timeout 0 -i --tty --image nicolaka/netshoot -- /bin/bash'
+  alias kdebuglite='kubectl run debug-shell --rm --timeout 0 -i --tty --image alpine -- /bin/sh'
+  alias kexec='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image nicolaka/netshoot -- '
+  alias kexeclite='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image alpine -- '
+  alias kwatch="k9s --headless --all-namespaces --command pods --logoless"
+  alias kw=kwatch
   export do='—dry-run=client -o=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
@@ -161,7 +164,7 @@ kmonitor() {
   printf '\x1b[34mContext: \x1b[1m%s\x1b[0m\n' "$(kubectx --current)"
   printf '\x1b[34mNamespace: \x1b[1m%s\x1b[0m\n' "$(kubens --current)"
   echo
-  kubectl get all,secrets,sa,ingress
+  kubectl get ns,all,secrets,sa,ingress
 }
 
 __expand() {
