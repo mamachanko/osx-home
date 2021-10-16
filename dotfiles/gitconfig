@@ -28,7 +28,7 @@
 
 [commit]
   gpgSign = true
-  template = /Users/mbrauer/.gitcommitmessage
+  template = ~/.gitcommitmessage
 
 [gpg]
   program = gpg
