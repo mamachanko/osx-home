@@ -1,1 +1,4 @@
+;; This is my Emacs configuration.
 (global-display-line-numbers-mode)
+(menu-bar-mode 0)
+(load-theme 'tango-dark)
