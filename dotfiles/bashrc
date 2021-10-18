@@ -71,7 +71,7 @@ configure_env() {
 
   # Fuzzyfinder fzf
   [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-  export FZF_DEFAULT_COMMAND='fd --type f --type d --hidden --follow --exclude=.git --exclude=.idea --exclude=.vscode --exclude=.sass-cache --exclude=node_modules --exclude=build --exclude=Library'
+  export FZF_DEFAULT_COMMAND='fd --no-ignore --type f --type d --hidden --follow --exclude=.git --exclude=.idea --exclude=.vscode --exclude=.sass-cache --exclude=node_modules --exclude=build --exclude=Library'
   # Use ~~ as the trigger sequence instead of the default **
   export FZF_COMPLETION_TRIGGER='~~'
   # Options to fzf command
@@ -81,7 +81,6 @@ configure_env() {
   eval "$(zoxide init bash)"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
-  source ~/.config/broot/launcher/bash/br
   eval "$(starship init bash)"
 
   source ~/tools.sh
@@ -101,7 +100,7 @@ configure_aliases() {
 
   alias cat=bat
 
-  alias tree='br'
+  alias tree='tree --noreport -a '
 
   source <(yq shell-completion bash)
 
@@ -116,7 +115,7 @@ configure_aliases() {
   alias kexeclite='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image alpine -- '
   alias kwatch="k9s --headless --all-namespaces --command pods --logoless"
   alias kw=kwatch
-  export do='—dry-run=client -o=yaml'
+  export do='--dry-run=client --output=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
 
@@ -140,9 +139,12 @@ v() {
 }
 
 vag() {
-  local files
-  files=$(ag -l "$1" "${2:=.}")
-  vim "$files"
+  local files searchPattern fileSearchPattern
+
+  searchPattern="${1?}"
+  fileSearchPattern="${2:-'.*'}"
+
+  vim $(ag --files-with-matches "$searchPattern" --file-search-regex "$fileSearchPattern")
 }
 
 saferbash() {
