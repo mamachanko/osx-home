@@ -29,7 +29,8 @@ install_config() {
 
   for dot_item in $(/bin/ls "$dotfiles_dir"); do
     link_target="$HOME/.${dot_item}"
-    rm -f "$link_target"
+    cp -R "$link_target" "$link_target".backup || true
+    rm -rf "$link_target"
     ln -sfv "${dotfiles_dir}/${dot_item}" "$link_target"
   done
 }
