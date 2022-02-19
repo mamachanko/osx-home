@@ -3,12 +3,12 @@
 set -o pipefail
 
 main() {
-  echo "sourcing .bashrc"
+  printf '\x1b[1m… .bashrc\x1b[0m\n'
 
   configure_bash
   configure_kitty
 
-  echo "sourcing .bashrc done"
+printf '\x1b[1;32m✔ .bashrc\x1b[0m\n'
 }
 
 configure_bash() {
@@ -29,15 +29,17 @@ configure_env() {
   export EDITOR=nvim
   export LESS=-Ri
 
+  export XDG_CONFIG_HOME=~/.config
+
   # Do not immediately quit the shell on C-d, but only after the third time.
   export IGNOREEOF=2
 
   # Include my personal scripts in PATH.
-  PATH="$HOME/bin:$PATH"
-  PATH="$HOME/workspace/osx-home/bin:$PATH"
   PATH="/usr/local/bin:$PATH"
-  PATH="$HOME/go/bin:$PATH"
   PATH="$(pyenv root)/shims:$PATH"
+  PATH="$HOME/go/bin:$PATH"
+  PATH="$HOME/workspace/osx-home/bin:$PATH"
+  PATH="$HOME/bin:$PATH"
   export PATH
 
   # Set TERM='xterm-256color' to get proper color support in Vim and other
@@ -89,9 +91,11 @@ configure_env() {
 configure_aliases() {
   unalias -a
 
-  alias s='source ~/.bashrc'
+  alias s='source ~/.bash_profile'
 
   alias vim=nvim
+
+  alias make=gmake
 
   alias ls='exa -la --icons'
   alias ll='ls'
@@ -100,7 +104,9 @@ configure_aliases() {
 
   alias cat=bat
 
-  alias tree='tree --noreport -a '
+  alias tree="echo 'Ignoring .git and .idea' >&2 && tree -C --noreport -a -I '.idea|.git' "
+  alias l="tree -F"
+  alias lll="l --du -s -h"
 
   source <(yq shell-completion bash)
 
@@ -115,12 +121,19 @@ configure_aliases() {
   alias kexeclite='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image alpine -- '
   alias kwatch="k9s --headless --all-namespaces --command pods --logoless"
   alias kw=kwatch
+  alias k9="k9s --headless --all-namespaces --logoless --context kind-kind --command "
   export do='--dry-run=client --output=yaml'
   export die='--grace-period=0 --force'
   complete -F __start_kubectl k
 
   # Docker
   alias dockerclean="docker system prune --force --all --volumes && docker network prune --force"
+
+  alias p='k get packagerepositories,packages,packageinstalls -A'
+
+  alias tz='TZ_LIST="America/Los_Angeles,Irina & Filip;America/Chicago,Candice;America/New_York,Sarah & Dmitriy;CET,Daniel & Max" tz'
+  
+  alias drun='docker run --rm -it '
 }
 
 configure_keys() {

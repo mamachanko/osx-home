@@ -67,6 +67,9 @@ set cursorcolumn
 
 " Show whitespace characters.
 set list
+" set listchars=tab:> ,trail:-,nbsp:+space:·
+set showbreak=↪\ 
+set listchars=tab:\ ,eol:,nbsp:␣,trail:⊙,extends:⟩,precedes:⟨
 
 " Highlight search matches as you type the pattern.
 set hlsearch

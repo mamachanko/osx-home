@@ -1,6 +1,17 @@
-echo "sourcing .bash_profile"
+printf '\x1b[1m… .bash_profile\x1b[0m\n'
 
 source ~/.bashrc
 
-echo "sourcing .bash_profile done"
+#. <(tanzu completion bash)
+#. <(kubectl completion bash)
+#. <(kubebuilder completion bash)
+#. <(yq shell-completion bash)
+#. <(kapp completion bash)
 
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+
+printf '\x1b[1;32m✔ .bash_profile\x1b[0m\n'
