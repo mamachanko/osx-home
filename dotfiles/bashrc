@@ -108,6 +108,8 @@ configure_aliases() {
   alias l="tree -F"
   alias lll="l --du -s -h"
 
+  alias r='cd $(git rev-parse --show-toplevel)'
+
   source <(yq shell-completion bash)
 
   # Kubernetes
