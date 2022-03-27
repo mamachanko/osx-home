@@ -19,6 +19,7 @@ configure_bash() {
 }
 
 configure_env() {
+  [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
   source ~/.vendor/bash/colours.bash
   source ~/.vendor/bash/git-completion.bash
   source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
@@ -81,15 +82,17 @@ configure_env() {
 
   eval "$(direnv hook bash)"
   eval "$(zoxide init bash)"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
   eval "$(starship init bash)"
+
+  export NVM_DIR="$HOME/.nvm"
 
   source ~/tools.sh
 }
 
 configure_aliases() {
   unalias -a
+
+  source ~/complete_alias
 
   alias s='source ~/.bash_profile'
 
@@ -110,13 +113,9 @@ configure_aliases() {
 
   alias r='cd $(git rev-parse --show-toplevel)'
 
-  source <(yq shell-completion bash)
-
   # Kubernetes
-  source <(kubectl completion bash)
   alias k=kubectl
-  alias kn='kubectl config set-context --current --namespace '
-  alias kc='kubectl cluster-info --context '
+  alias kg="kubectl get --output=yaml"
   alias kdebug='kubectl run debug-shell --rm --timeout 0 -i --tty --image nicolaka/netshoot -- /bin/bash'
   alias kdebuglite='kubectl run debug-shell --rm --timeout 0 -i --tty --image alpine -- /bin/sh'
   alias kexec='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image nicolaka/netshoot -- '
@@ -126,14 +125,18 @@ configure_aliases() {
   alias k9="k9s --headless --all-namespaces --logoless --context kind-kind --command "
   export do='--dry-run=client --output=yaml'
   export die='--grace-period=0 --force'
-  complete -F __start_kubectl k
+  complete -F _complete_alias k
+  complete -F _complete_alias kg
+
+  # Gcloud
+  alias g=gcloud
 
   # Docker
   alias dockerclean="docker system prune --force --all --volumes && docker network prune --force"
 
   alias p='k get packagerepositories,packages,packageinstalls -A'
 
-  alias tz='TZ_LIST="America/Los_Angeles,Irina & Filip;America/Chicago,Candice;America/New_York,Sarah & Dmitriy;CET,Daniel & Max" tz'
+  alias tz='TZ_LIST="UTC,Zulu;America/Los_Angeles,Irina & Filip;America/Chicago,Candice;America/New_York,Sarah & Dmitriy;CET,Daniel & Max" tz'
   
   alias drun='docker run --rm -it '
 }
@@ -188,11 +191,17 @@ __expand() {
   return 0
 }
 
+nvm_configure() {
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+}
+
 configure_functions() {
   export -f kmonitor
   export -f v
   export -f vag
   export -f __expand
+  export -f nvm_configure
 }
 
 configure_kitty() {
