@@ -6,12 +6,12 @@ $character'''
 
 [jobs]
 format = '[$symbol $number]($style) '
-symbol = '💭'
+symbol = '⊙'
 style = '#c7fffc'
 
 [character]
 format = '$symbol '
-success_symbol = '[🦴](#e5e1cf)'
+success_symbol = '[❯](#e5e1cf)'
 error_symbol = '[✗](red)'
 
 [directory]

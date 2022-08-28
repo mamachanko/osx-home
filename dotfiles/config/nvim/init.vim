@@ -14,15 +14,11 @@ Plug 'vim-airline/vim-airline'
 " See: https://github.com/koalaman/shellcheck
 Plug 'itspriddle/vim-shellcheck'
 
-" Semantic Highlighting for Python in Neovim
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-" Automatically comply with Python's PEP8 rules for indentation.
-" See: https://www.python.org/dev/peps/pep-0008/
-Plug 'Vimjas/vim-python-pep8-indent'
-
 " Provide linting. Especially nice for better shell scripts through shellcheck.
 Plug 'dense-analysis/ale'
+
+" Surround things
+Plug 'tpope/vim-surround'
 
 " Fzf for fuzzy finding files
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -93,3 +89,7 @@ set noshowmode
 syntax on
 
 nmap <C-p> :Files<CR>
+
+" YAML comments
+" https://stackoverflow.com/questions/51059357/vim-wrong-indent-when-comment-lines-of-yaml-file
+autocmd FileType yaml setlocal indentkeys-=0#

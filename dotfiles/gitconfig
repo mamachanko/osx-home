@@ -63,3 +63,6 @@
 
 [init]
 	defaultBranch = main
+
+[url "ssh://git@gitlab.eng.vmware.com"]
+	insteadOf = https://gitlab.eng.vmware.com

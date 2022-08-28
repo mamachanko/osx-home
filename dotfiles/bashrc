@@ -41,6 +41,7 @@ configure_env() {
   PATH="$HOME/go/bin:$PATH"
   PATH="$HOME/workspace/osx-home/bin:$PATH"
   PATH="$HOME/bin:$PATH"
+  PATH="${PATH}:${HOME}/.krew/bin"
   export PATH
 
   # Set TERM='xterm-256color' to get proper color support in Vim and other
@@ -98,6 +99,8 @@ configure_aliases() {
 
   alias vim=nvim
 
+  alias y='yq e . -'
+
   alias make=gmake
 
   alias ls='exa -la --icons'
@@ -116,6 +119,8 @@ configure_aliases() {
   # Kubernetes
   alias k=kubectl
   alias kg="kubectl get --output=yaml"
+  alias kt="kubectl tree"
+  alias kl="kubectl lineage"
   alias kdebug='kubectl run debug-shell --rm --timeout 0 -i --tty --image nicolaka/netshoot -- /bin/bash'
   alias kdebuglite='kubectl run debug-shell --rm --timeout 0 -i --tty --image alpine -- /bin/sh'
   alias kexec='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image nicolaka/netshoot -- '
@@ -137,8 +142,19 @@ configure_aliases() {
   alias p='k get packagerepositories,packages,packageinstalls -A'
 
   alias tz='TZ_LIST="UTC,Zulu;America/Los_Angeles,Irina & Filip;America/Chicago,Candice;America/New_York,Sarah & Dmitriy;CET,Daniel & Max" tz'
-  
-  alias drun='docker run --rm -it '
+
+  alias drun='docker run --rm -it --volume $PWD:/src --workdir /src '
+
+  alias mx='tmuxinator'
+  alias mxs='mx start'
+  alias mxe='mx edit'
+  alias sso='mxs appsso'
+  alias ci_app='mxs ci-app'
+  alias docs='mxs docs'
+
+  alias select_tmux_session='tmux list-sessions -F \#S | gum filter --placeholder "Pick session..."'
+  alias switch_tmux='tmux switch-client -t $(select_tmux_session) || tmux attach -t $(select_tmux_session)'
+  alias smux=switch_tmux
 }
 
 configure_keys() {
