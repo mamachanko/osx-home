@@ -1,0 +1,24 @@
+<%# APPSSO KUBE DASH %>
+<%# ~/config/tmuxinator/appsso.yml %>
+<%# Usage:   tmuxinator start appsso%>
+<%# Or just: mux s appsso %>
+
+<%# Stamp out k9s and stern cli invocations for dry-ness. %>
+
+<% k9s = "k9s --headless --logoless --context $(kubectx -c) --all-namespaces --command" %>
+<% stern = "clear && stern --context $(kubectx -c) --since 2m" %>
+
+name: appsso
+root: ~/workspace/sso4k8s
+startup_pane: 3
+windows:
+  - dash:
+      <%# This is a custom layout. Get your's by adjusting an existing session and then running `tmux list-windows`.%>
+      layout: ac35,232x65,0,0{80x65,0,0[80x32,0,0,21,80x16,0,33,71,80x15,0,50,72],151x65,81,0[151x32,81,0,108,151x16,81,33,112,151x15,81,50,113]}
+      panes:
+        - <%= k9s %> deploy
+        - <%= k9s %> sso.apps.tanzu.vmware.com/v1alpha1/authservers
+        - <%= k9s %> sso.apps.tanzu.vmware.com/v1alpha1/clientregistrations
+        - nvm_configure && clear
+        - stern --context $(kubectx -c) --since 10s --all-namespaces --selector=app.kubernetes.io/managed-by=sso.apps.tanzu.vmware.com
+        - stern --context $(kubectx -c) --since 10s --namespace appsso '.*'

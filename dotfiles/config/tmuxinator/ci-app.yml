@@ -1,0 +1,17 @@
+<% k9s = " k9s --headless --logoless --context $(kubectx -c) --all-namespaces --command" %>
+<% stern = "clear && stern --context $(kubectx -c) --since 2m" %>
+
+name: ci-app
+root: ~/workspace/ci-app
+startup_pane: 3
+windows:
+  - dash:
+      <%# This is a custom layout. Get your's by adjusting an existing session and then running `tmux list-windows`.%>
+      # layout: ac35,232x65,0,0{80x65,0,0[80x32,0,0,21,80x16,0,33,71,80x15,0,50,72],151x65,81,0[151x32,81,0,108,151x16,81,33,112,151x15,81,50,113]}
+      layout: da74,232x65,0,0[232x37,0,0{116x37,0,0[116x18,0,0,0,116x18,0,19,29],115x37,117,0[115x18,117,0,2,115x18,117,19,30]},232x27,0,38,16]]
+      panes:
+        - <%= k9s %> deploy
+        - <%= k9s %> ns
+        - while ! k get pkgi; do sleep 1; done; <%= k9s %> pkgi
+        - while ! k get packagerepository; do sleep 1; done; <%= k9s %> packagerepository
+        - nvm_configure && clear
