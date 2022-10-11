@@ -156,6 +156,8 @@ configure_aliases() {
   alias select_tmux_session='tmux list-sessions -F \#S | gum filter --placeholder "Pick session..."'
   alias switch_tmux='tmux switch-client -t $(select_tmux_session) || tmux attach -t $(select_tmux_session)'
   alias smux=switch_tmux
+
+  alias x='tmux new-session -s'
 }
 
 configure_keys() {
