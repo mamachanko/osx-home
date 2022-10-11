@@ -37,7 +37,6 @@ configure_env() {
 
   # Include my personal scripts in PATH.
   PATH="/usr/local/bin:$PATH"
-  PATH="$(pyenv root)/shims:$PATH"
   PATH="$HOME/go/bin:$PATH"
   PATH="$HOME/workspace/osx-home/bin:$PATH"
   PATH="$HOME/bin:$PATH"
@@ -96,6 +95,8 @@ configure_aliases() {
   source ~/complete_alias
 
   alias s='source ~/.bash_profile'
+
+  alias python=python3
 
   alias vim=nvim
 
