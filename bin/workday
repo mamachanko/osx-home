@@ -5,7 +5,7 @@ set -euo pipefail
 declare -a APPS=("slack"
                  "zoom.us"
                  "google chrome"
-                 "1password 7"
+                 "1password"
                 )
 
 main() {
@@ -59,7 +59,7 @@ end() {
 start_apps() {
   for app in "${APPS[@]}" ; do
     echo "opening $app ..."
-    open -g -a "$app"
+    open -g -a "/Applications/$app"
   done
 }
 
