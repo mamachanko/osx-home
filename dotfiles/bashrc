@@ -122,8 +122,8 @@ configure_aliases() {
   alias kg="kubectl get --output=yaml"
   alias kt="kubectl tree"
   alias kl="kubectl lineage"
-  alias kdebug='kubectl run debug-shell --rm --timeout 0 -i --tty --image nicolaka/netshoot -- /bin/bash'
-  alias kdebuglite='kubectl run debug-shell --rm --timeout 0 -i --tty --image alpine -- /bin/sh'
+  alias kdebug='kubectl run debug-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash'
+  alias kdebuglite='kubectl run debug-shell --rm -i --tty --image alpine -- /bin/sh'
   alias kexec='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image nicolaka/netshoot -- '
   alias kexeclite='kubectl run debug-shell --restart Never --rm --timeout 0 -i --tty --image alpine -- '
   alias kwatch="k9s --headless --all-namespaces --command pods --logoless"
