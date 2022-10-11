@@ -14,9 +14,6 @@ Plug 'vim-airline/vim-airline'
 " See: https://github.com/koalaman/shellcheck
 Plug 'itspriddle/vim-shellcheck'
 
-" Provide linting. Especially nice for better shell scripts through shellcheck.
-Plug 'dense-analysis/ale'
-
 " Surround things
 Plug 'tpope/vim-surround'
 
