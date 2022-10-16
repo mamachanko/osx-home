@@ -43,9 +43,9 @@ configure_env() {
   PATH="${PATH}:${HOME}/.krew/bin"
   export PATH
 
-  # Set TERM='xterm-256color' to get proper color support in Vim and other
+  # Set TERM='xterm-kitty' to get proper color support in Vim and other
   # applications.
-  export TERM='xterm-256color'
+  # export TERM='xterm-kitty'
 
   # This erases duplicates in the command history, keeps 10k entris, and
   # appends to the history file rather than overwriting it.
