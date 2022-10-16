@@ -5,8 +5,10 @@ set -euo pipefail
 : ${KITTY_CONF:=~/.config/kitty/kitty.conf}
 : ${KITTY_THEME_CONF:=~/.config/kitty/theme.conf}
 : ${KITTY_THEMES_DIR:=~/.kitty-themes}
+# : ${KITTY_THEMES_REPO:=dexpota/kitty-themes}
+: ${KITTY_THEMES_REPO:=catppuccin/kitty}
 
-KITTY_DEFAULT_THEME="Floraverse"
+KITTY_DEFAULT_THEME="mocha"
 
 usage() {
   echo
@@ -45,7 +47,7 @@ get_or_update_kitty_themes() {
   else
     git clone \
       --depth 1 \
-      "https://github.com/dexpota/kitty-themes.git" \
+      "https://github.com/$KITTY_THEMES_REPO.git" \
       "$KITTY_THEMES_DIR"
   fi
 }
@@ -74,7 +76,7 @@ exclude_theme_conf_from_kitty_conf() {
 list_themes() {
   ensure_themes_installed
 
-  /bin/ls "$KITTY_THEMES_DIR"/themes \
+  /bin/ls "$KITTY_THEMES_DIR" \
     | xargs -n1 echo \
     | sed 's/\.conf//g'
 }
@@ -100,7 +102,7 @@ set_theme() {
 
   ensure_themes_installed
 
-  ln -svf "$KITTY_THEMES_DIR/themes/$theme.conf" "$KITTY_THEME_CONF"
+  ln -svf "$KITTY_THEMES_DIR/$theme.conf" "$KITTY_THEME_CONF"
 }
 
 try_theme() {
@@ -111,7 +113,7 @@ try_theme() {
 
   # Start a new instance of kitty with the given theme.
   # https://github.com/dexpota/kitty-themes#previews
-  kitty -o include="$KITTY_THEMES_DIR/themes/$theme.conf" $command
+  kitty -o include="$KITTY_THEMES_DIR/$theme.conf" $command
 }
 
 main $@
