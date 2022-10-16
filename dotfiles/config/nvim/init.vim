@@ -25,8 +25,19 @@ Plug 'vmware-tanzu/ytt.vim'
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" Catpuccin themes everywhere
+" https://github.com/catppuccin/nvim
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
 call plug#end()
 " }}
+
+" Set the catpuccin color theme of choice
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, macchiato
+lua require("catppuccin").setup()
+colorscheme catppuccin
+" Set termguicolors to get the desired color results
+" set termguicolors
 
 " Draw a visible column to see when lines get long
 " TODO: column color
