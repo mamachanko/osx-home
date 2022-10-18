@@ -31,7 +31,7 @@ main() {
 }
 
 ensure_logged_in() {
-  if ! op list vaults > /dev/null; then
+  if ! op account get --account my > /dev/null; then
     eval "$(op signin my)"
   fi
 }

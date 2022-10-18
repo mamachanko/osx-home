@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-decoded_ssh_key=$(1pwd get SSH "base64 encoded private key" | base64 --decode)
+decoded_ssh_key=$(op read op://Personal/SSH/"base64 encoded private key" | base64 --decode)
 
 ttl="$((60 * 60 * 9))" # 9 hrs
 
