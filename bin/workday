@@ -2,10 +2,11 @@
 
 set -euo pipefail
 
-declare -a APPS=("slack"
+declare -a APPS=("Slack"
                  "zoom.us"
-                 "google chrome"
-                 "1password"
+                 "Google Chrome"
+                 "1Password"
+                 "Microsoft Outlook"
                 )
 
 main() {
@@ -59,7 +60,7 @@ end() {
 start_apps() {
   for app in "${APPS[@]}" ; do
     echo "opening $app ..."
-    open -g -a "/Applications/$app"
+    open -g -a "/Applications/$app.app"
   done
 }
 
