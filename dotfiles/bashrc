@@ -161,7 +161,13 @@ configure_aliases() {
 function xs() {
   echo switching
   selected_tmux_session="$(tmux list-sessions -F \#S | gum filter --placeholder "Pick session...")"
-  tmux switch-client -t "${selected_tmux_session}" || tmux attach -t "${selected_tmux_session}"
+  echo "$selected_tmux_session"
+  echo switching client
+  if ! tmux switch-client -t "${selected_tmux_session}"; then
+    echo not switching client
+  fi
+  echo attaching
+  tmux attach -t "${selected_tmux_session}"
 }
 
 configure_keys() {
