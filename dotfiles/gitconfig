@@ -36,7 +36,7 @@
   program = gpg
 
 [user]
-  signingkey = CB7D1629DFDB41A59E54C5395B79E81F346C8D5E
+  signingkey = ACC051D62BF480FD11E87FDA55083BB2574518E4
   name = Max Brauer
   email = mbrauer@vmware.com
 

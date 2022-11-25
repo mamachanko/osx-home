@@ -43,6 +43,7 @@ configure_env() {
   PATH="$HOME/bin:$PATH"
   PATH="/usr/local/sbin:$PATH"
   PATH="${PATH}:${HOME}/.krew/bin"
+  PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
   export PATH
 
   # Set TERM='xterm-kitty' to get proper color support in Vim and other
@@ -113,7 +114,7 @@ configure_aliases() {
 
   alias cat=bat
 
-  alias tree="echo 'Ignoring .git and .idea' >&2 && tree -C --noreport -a -I '.idea|.git' "
+  alias tree="echo 'Ignoring .git and .idea' >&2 && tree -C --noreport -a -I '.idea|.git|node_modules' "
   alias l="tree -F"
   alias lll="l --du -s -h"
 
