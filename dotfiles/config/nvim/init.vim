@@ -33,14 +33,13 @@ call plug#end()
 " }}
 
 " Set the catpuccin color theme of choice
-let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, macchiato
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 lua require("catppuccin").setup()
 colorscheme catppuccin
 " Set termguicolors to get the desired color results
 " set termguicolors
 
 " Draw a visible column to see when lines get long
-" TODO: column color
 set colorcolumn=100
 
 " Don't maintain any backup or swapfiles
