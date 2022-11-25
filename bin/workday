@@ -3,7 +3,6 @@
 set -euo pipefail
 
 declare -a APPS=("Slack"
-                 "zoom.us"
                  "Google Chrome"
                  "1Password"
                  "Microsoft Outlook"
