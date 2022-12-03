@@ -8,7 +8,7 @@ main() {
   configure_bash
   configure_kitty
 
-printf '\x1b[1;32m✔ .bashrc\x1b[0m\n'
+  printf '\x1b[1;32m✔ .bashrc\x1b[0m\n'
 }
 
 configure_bash() {
@@ -27,7 +27,7 @@ configure_env() {
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 
   export LANG=en_US.UTF-8
-  export EDITOR=nvim
+  export EDITOR=lvim
   export LESS=-Ri
 
   export XDG_CONFIG_HOME=~/.config
@@ -37,6 +37,7 @@ configure_env() {
 
   # Include my personal scripts in PATH.
   PATH="/usr/local/bin:$PATH"
+  PATH="$HOME/.local/bin:$PATH"
   PATH="$HOME/go/bin:$PATH"
   PATH="$HOME/workspace/osx-home/bin:$PATH"
   PATH="$HOME/bin:$PATH"
@@ -101,7 +102,7 @@ configure_aliases() {
 
   alias python=python3
 
-  alias vim=nvim
+  alias vim=lvim
 
   alias y='yq e . -'
 
