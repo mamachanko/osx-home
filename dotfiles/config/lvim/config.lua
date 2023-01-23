@@ -83,6 +83,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "markdown"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -167,13 +168,17 @@ lvim.builtin.lualine.options.theme = "catppuccin"
 
 -- Additional Plugins
 lvim.plugins = {
-    {
-      "catppuccin/nvim",
-      as = "catpuccin",
-    },
-    {
-      "tpope/vim-surround",
-    },
+  {
+    "catppuccin/nvim",
+    as = "catpuccin",
+  },
+  {
+    "tpope/vim-surround",
+  },
+  {
+    "nvim-treesitter/playground",
+    event = "BufRead",
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
