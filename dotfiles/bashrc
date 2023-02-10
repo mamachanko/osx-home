@@ -6,7 +6,6 @@ main() {
   printf '\x1b[1m… .bashrc\x1b[0m\n'
 
   configure_bash
-  configure_kitty
 
   printf '\x1b[1;32m✔ .bashrc\x1b[0m\n'
 }
@@ -96,8 +95,6 @@ configure_env() {
 configure_aliases() {
   unalias -a
 
-  source ~/complete_alias
-
   alias s='source ~/.bash_profile'
 
   alias python=python3
@@ -122,7 +119,10 @@ configure_aliases() {
   alias r='cd $(git rev-parse --show-toplevel)'
 
   # Kubernetes
+  # Goto: https://kubernetes.io/docs/reference/kubectl/cheatsheet/#bash
   alias k=kubectl
+  complete -F __start_kubectl k 
+
   alias kg="kubectl get --output=yaml"
   alias kt="kubectl tree"
   alias kl="kubectl lineage"
@@ -135,8 +135,6 @@ configure_aliases() {
   alias k9="k9s --headless --all-namespaces --logoless --context kind-kind --command "
   export do='--dry-run=client --output=yaml'
   export die='--grace-period=0 --force'
-  complete -F _complete_alias k
-  complete -F _complete_alias kg
 
   # Gcloud
   alias g=gcloud
@@ -233,10 +231,6 @@ configure_functions() {
   export -f vag
   export -f __expand
   export -f nvm_configure
-}
-
-configure_kitty() {
-  source /dev/stdin <<<"$(kitty + complete setup bash)"
 }
 
 main
