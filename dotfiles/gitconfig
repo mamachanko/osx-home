@@ -33,10 +33,14 @@
   template = ~/.gitcommitmessage
 
 [gpg]
-  program = gpg
+  format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = /Users/mbrauer/.config/git/allowed_ssh_signers
 
 [user]
-  signingkey = ACC051D62BF480FD11E87FDA55083BB2574518E4
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAukKiDOPJzOu0mv68G/1kVxKJ3irrEQI/FcDWKmqIOK
   name = Max Brauer
   email = mbrauer@vmware.com
 
