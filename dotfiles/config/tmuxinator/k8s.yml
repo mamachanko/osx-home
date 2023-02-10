@@ -1,0 +1,11 @@
+name: k8s
+root: ~/workspace/sso4k8s
+startup_pane: 1
+windows:
+  - dash:
+      layout: 3aa8,232x65,0,0[232x32,0,0{116x32,0,0,3,115x32,117,0[115x16,117,0,6,115x15,117,17,7]},232x32,0,33,5]
+      panes:
+        - k9s --headless --logoless --context $(kubectx -c) --all-namespaces --command deploy
+        - k9s --headless --logoless --context $(kubectx -c) --all-namespaces --command packageinstall
+        - k9s --headless --logoless --context $(kubectx -c) --all-namespaces --command packagerepository
+        - nvm_configure && clear
