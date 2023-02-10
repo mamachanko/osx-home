@@ -5,4 +5,7 @@ source ~/.bashrc
 printf '\x1b[1;32m✔ .bash_profile\x1b[0m\n'
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export GKE_DEFAULT_REGION=europe-west1
+
+nvm_configure
 
