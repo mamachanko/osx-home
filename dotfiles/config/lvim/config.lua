@@ -61,6 +61,9 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 -- }
 
+-- Use simrat39/symbols-outline to navigate document symbols
+lvim.builtin.which_key.mappings["ls"] = { "<cmd>SymbolsOutline<CR>", "Document Symbols" }
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
@@ -178,6 +181,12 @@ lvim.plugins = {
   {
     "nvim-treesitter/playground",
     event = "BufRead",
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require('symbols-outline').setup()
+    end
   },
 }
 
