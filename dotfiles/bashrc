@@ -103,8 +103,6 @@ configure_aliases() {
 
   alias y='yq e . -'
 
-  alias make=gmake
-
   alias ls='exa -la --icons'
   alias ll='ls'
 
