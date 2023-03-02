@@ -20,6 +20,11 @@ lvim.colorcolumn = 100
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+
+-- remap auto-completion so that <C-Space> does not collide with tmux escape control sequence
+local cmp_mapping = require("cmp.config.mapping")
+lvim.builtin.cmp.mapping["<A-Space>"] = cmp_mapping.complete()
+
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -71,6 +76,17 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+
+-- https://github.com/nvim-treesitter/nvim-treesitter#incremental-selection
+lvim.builtin.treesitter.incremental_selection = {
+  enable = true,
+  keymaps = {
+    init_selection = "gnn", -- set to `false` to disable one of the mappings
+    node_incremental = "grn",
+    scope_incremental = "grc",
+    node_decremental = "grm",
+  },
+}
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -183,9 +199,39 @@ lvim.plugins = {
     event = "BufRead",
   },
   {
+    -- https://www.lunarvim.org/docs/plugins/extra-plugins#symbols-outlinenvim
     "simrat39/symbols-outline.nvim",
     config = function()
       require('symbols-outline').setup()
+    end
+  },
+  {
+    -- https://www.lunarvim.org/docs/plugins/extra-plugins#neoscroll
+    "karb94/neoscroll.nvim",
+    event = "WinScrolled",
+    config = function()
+      require('neoscroll').setup({
+        -- All these keys will be mapped to their corresponding default scrolling animation
+        mappings = {
+          '<C-u>', -- up
+          '<C-d>', -- down
+          '<C-b>', -- page back
+          '<C-f>', -- page forward
+          '<C-y>', -- back by 5
+          '<C-e>',
+          'zt',
+          'zz',
+          'zb'
+        },
+        hide_cursor = true, -- Hide cursor while scrolling
+        stop_eof = true, -- Stop at <EOF> when scrolling downwards
+        use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+        respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+        easing_function = nil, -- Default easing function
+        pre_hook = nil, -- Function to run before the scrolling animation starts
+        post_hook = nil, -- Function to run after the scrolling animation ends
+      })
     end
   },
 }
