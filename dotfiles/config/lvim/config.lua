@@ -249,3 +249,11 @@ lvim.plugins = {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+--
+-- Fix auto-indentation for YAML files
+-- See: https://stackoverflow.com/a/54747794
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "yaml", "yml" },
+  command = "setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>",
+})
+
