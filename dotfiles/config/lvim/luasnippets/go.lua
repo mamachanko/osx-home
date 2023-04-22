@@ -8,17 +8,17 @@ return {
   		DesiredChild: func(ctx context.Context, parent *<parent>) (*<type>, error) {
   			return &<type>{
   				ObjectMeta: metav1.ObjectMeta{
-  					Name:      // TODO(mbrauer),
+  					Name:      "", // TODO(mbrauer)
   					Namespace: parent.Namespace,
   					Labels: map[string]string{
   						// https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
   						"app.kubernetes.io/part-of":    parent.Name,
-  						"app.kubernetes.io/component":  // TODO(mbrauer),
+  						"app.kubernetes.io/component":  "", // TODO(mbrauer)
   						"app.kubernetes.io/managed-by": "sso.apps.tanzu.vmware.com",
   						"app.kubernetes.io/created-by": "controller",
   					},
   					Annotations: map[string]string{
-  						"sso.apps.tanzu.vmware.com/documentation": // TODO(mbrauer),
+  						"sso.apps.tanzu.vmware.com/documentation": "", // TODO(mbrauer)
   					},
   				},
   				Spec: <type>Spec{},
