@@ -1,0 +1,43 @@
+matches:
+
+  - trigger: ":email"
+    replace: mbrauer@vmware.com
+
+  - trigger: ":team"
+    replace: sawalther@vmware.com,cquates@vmware.com,ddubson@vmware.com,dgarnier@vmware.com,ikhaimovich@vmware.com,fhanik@vmware.com
+
+  - trigger: ":pkg"
+    replace: $|$.tanzu.vmware.com
+
+  - trigger: ":cm"
+    replace: cert-manager.tanzu.vmware.com
+
+  - trigger: ":appsso"
+    replace: sso.apps.tanzu.vmware.com
+
+  - trigger: ":domain"
+    replace: identity.team
+
+  - trigger: ":local"
+    replace: localhost.identity.team
+
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m-%d-%Y"
+
+  - trigger: ":ccs"
+    replace: "[suggestion]: "
+      
+  - trigger: ":cci"
+    replace: "[issuer]: "
+
+  - trigger: ":cct"
+    replace: "[thought]: "
+
+  - trigger: ":ccq"
+    replace: "[question]: "
+
