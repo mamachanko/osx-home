@@ -68,6 +68,7 @@ lvim.builtin.cmp.mapping["<A-Space>"] = cmp_mapping.complete()
 
 -- Use simrat39/symbols-outline to navigate document symbols
 lvim.builtin.which_key.mappings["ls"] = { "<cmd>SymbolsOutline<CR>", "Document Symbols" }
+-- lvim.builtin.which_key.mappings["a"] = { "<cmd>gqap<CR>", "Format Paragraph" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
