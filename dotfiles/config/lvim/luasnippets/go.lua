@@ -1,6 +1,6 @@
 return {
   s(":rrsr", fmta([[
-  // Apply<name> applies TODO
+  // Apply<name> applies TODO(mbrauer)
   func Apply<name>() reconcilers.SubReconciler {
   	return &reconcilers.ChildReconciler{
   		ChildType:     &<type>{},
@@ -8,17 +8,17 @@ return {
   		DesiredChild: func(ctx context.Context, parent *<parent>) (*<type>, error) {
   			return &<type>{
   				ObjectMeta: metav1.ObjectMeta{
-  					Name:      // TODO,
+  					Name:      // TODO(mbrauer),
   					Namespace: parent.Namespace,
   					Labels: map[string]string{
   						// https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
   						"app.kubernetes.io/part-of":    parent.Name,
-  						"app.kubernetes.io/component":  // TODO,
+  						"app.kubernetes.io/component":  // TODO(mbrauer),
   						"app.kubernetes.io/managed-by": "sso.apps.tanzu.vmware.com",
   						"app.kubernetes.io/created-by": "controller",
   					},
   					Annotations: map[string]string{
-  						"sso.apps.tanzu.vmware.com/documentation": // TODO,
+  						"sso.apps.tanzu.vmware.com/documentation": // TODO(mbrauer),
   					},
   				},
   				Spec: <type>Spec{},
@@ -37,15 +37,15 @@ return {
   	}
   }
   ]], {
-      name = i(1),
-      parent = i(2),
-      type = i(3),
-    }, {
-      repeat_duplicates = true,
-    }
+    name = i(1),
+    parent = i(2),
+    type = i(3),
+  }, {
+    repeat_duplicates = true,
+  }
   )),
   s(":rrsy", fmta([[
-  // <name> TODO
+  // <name> TODO(mbrauer)
   func <name>(c reconcilers.Config) reconcilers.SubReconciler {
   	return &reconcilers.SyncReconciler{
   		Sync: func(ctx context.Context, parent *<parent>) error {
@@ -61,10 +61,10 @@ return {
   	}
   }
   ]], {
-      name = i(1),
-      parent = i(2),
-    }, {
-      repeat_duplicates = true,
-    }
-  ))
+    name = i(1),
+    parent = i(2),
+  }, {
+    repeat_duplicates = true,
+  }
+  )),
 }
