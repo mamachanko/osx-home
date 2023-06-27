@@ -1,3 +1,7 @@
+--
+-- Default sample config:
+-- 🔗 https://github.com/LunarVim/LunarVim/blob/1.3.0/utils/installer/config.example.lua
+--
 --[[
 lvim is the global options object
 

@@ -30,14 +30,17 @@ matches:
           format: "%m-%d-%Y"
 
   - trigger: ":ccs"
-    replace: "[suggestion]: "
+    replace: "**[suggestion, ]:** "
       
   - trigger: ":cci"
-    replace: "[issuer]: "
+    replace: "**[issue, ]:** "
 
   - trigger: ":cct"
-    replace: "[thought]: "
+    replace: "**[thought]:** "
 
   - trigger: ":ccq"
-    replace: "[question]: "
+    replace: "**[question, ]:** "
+
+  - trigger: ":ccp"
+    replace: "**[praise]:** "
 
