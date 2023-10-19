@@ -15,6 +15,11 @@
   ap = add --patch
   c = commit
   co = checkout
+  sw = switch
+  wa = worktree add
+  wl = worktree list
+  wm = worktree move
+  wr = worktree remove
   message = !$EDITOR ~/.gitcommitmessage
 
   # https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
@@ -70,3 +75,6 @@
 
 [url "ssh://git@gitlab.eng.vmware.com"]
 	insteadOf = https://gitlab.eng.vmware.com
+
+[url "ssh://git@github.com"]
+	insteadOf = https://github.com

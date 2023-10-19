@@ -74,13 +74,24 @@ lvim.builtin.cmp.mapping["<A-Space>"] = cmp_mapping.complete()
 lvim.builtin.which_key.mappings["ls"] = { "<cmd>SymbolsOutline<CR>", "Document Symbols" }
 -- lvim.builtin.which_key.mappings["a"] = { "<cmd>gqap<CR>", "Format Paragraph" }
 
+-- Use folke/persistence to manage sessions
+lvim.builtin.which_key.mappings["S"] = {
+  name = "Session",
+  c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+  l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+  Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.terminal.active = true
+lvim.builtin.terminal.active = false
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+
+-- Automatically install missing parsers when entering buffer
+lvim.builtin.treesitter.auto_install = true
 
 -- https://github.com/nvim-treesitter/nvim-treesitter#incremental-selection
 lvim.builtin.treesitter.incremental_selection = {
@@ -110,18 +121,25 @@ lvim.builtin.treesitter.ensure_installed = {
   "markdown"
 }
 
-lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enable = true
 
 lvim.builtin.lualine.options.theme = "catppuccin"
 
 -- generic LSP settings
 
--- -- make sure server will always be installed even if the server is in skipped_servers list
--- lvim.lsp.installer.setup.ensure_installed = {
---     "sumneko_lua",
---     "jsonls",
--- }
+-- make sure server will always be installed even if the server is in skipped_servers list
+lvim.lsp.installer.setup.ensure_installed = {
+  "bashls",
+  "gopls",
+  "jdtls",
+  "jsonls",
+  "lua_ls",
+  "yamlls",
+  -- "marksman",
+}
+
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "azure_pipelines_ls" })
+
 -- -- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
 -- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
@@ -132,13 +150,13 @@ lvim.builtin.lualine.options.theme = "catppuccin"
 -- }
 
 -- ---@usage disable automatic installation of servers
--- lvim.lsp.installer.setup.automatic_installation = false
+-- lvim.lsp.installer.setup.automatic_installation = true
 
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 -- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pyright", opts)
+-- require("lvim.lsp.manager").setup("marksman", opts)
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
@@ -194,7 +212,8 @@ lvim.builtin.lualine.options.theme = "catppuccin"
 lvim.plugins = {
   {
     "catppuccin/nvim",
-    as = "catpuccin",
+    name = "catpuccin",
+    lazy = false,
   },
   {
     "tpope/vim-surround",
@@ -228,17 +247,37 @@ lvim.plugins = {
           'zz',
           'zb'
         },
-        hide_cursor = true, -- Hide cursor while scrolling
-        stop_eof = true, -- Stop at <EOF> when scrolling downwards
+        hide_cursor = true,          -- Hide cursor while scrolling
+        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
         use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-        respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
         cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil, -- Default easing function
-        pre_hook = nil, -- Function to run before the scrolling animation starts
-        post_hook = nil, -- Function to run after the scrolling animation ends
+        easing_function = nil,       -- Default easing function
+        pre_hook = nil,              -- Function to run before the scrolling animation starts
+        post_hook = nil,             -- Function to run after the scrolling animation ends
       })
     end
   },
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    -- module = "persistence",
+    lazy = true,
+    config = function()
+      require("persistence").setup {
+        dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+        options = { "buffers", "curdir", "tabpages", "winsize" },
+      }
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -261,4 +300,3 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "yaml", "yml" },
   command = "setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>",
 })
-

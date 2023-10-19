@@ -44,6 +44,7 @@ configure_env() {
   PATH="/usr/local/sbin:$PATH"
   PATH="${PATH}:${HOME}/.krew/bin"
   PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+  PATH="/usr/local/opt/curl/bin:$PATH"
   export PATH
 
   # Set TERM='xterm-kitty' to get proper color support in Vim and other
@@ -80,6 +81,9 @@ configure_env() {
   # Make GPG happy
   export GPG_TTY=$(tty)
 
+  # Tell ripgrep where to find its configuration file
+  export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
   export GO111MODULE=on
   export GIT_DUET_ROTATE_AUTHOR=1
 
@@ -108,9 +112,6 @@ configure_aliases() {
   alias python=python3
 
   alias vim=lvim
-
-  # Get used to ripgrep
-  alias ag=rg
 
   alias y='yq e . -'
 

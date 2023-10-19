@@ -6,13 +6,19 @@ matches:
   - trigger: ":team"
     replace: sawalther@vmware.com,cquates@vmware.com,ddubson@vmware.com,dgarnier@vmware.com,ikhaimovich@vmware.com,fhanik@vmware.com
 
+  - trigger: ":cn"
+    replace: constellation
+
   - trigger: ":pkg"
     replace: $|$.tanzu.vmware.com
 
   - trigger: ":cm"
     replace: cert-manager.tanzu.vmware.com
 
-  - trigger: ":appsso"
+  - trigger: ":tcm"
+    replace: cert-manager.community.tanzu.vmware.com
+
+  - trigger: ":sso"
     replace: sso.apps.tanzu.vmware.com
 
   - trigger: ":domain"
@@ -27,7 +33,7 @@ matches:
       - name: mydate
         type: date
         params:
-          format: "%m-%d-%Y"
+          format: "%Y-%m-%d"
 
   - trigger: ":ccs"
     replace: "**[suggestion, ]:** "
@@ -44,3 +50,21 @@ matches:
   - trigger: ":ccp"
     replace: "**[praise]:** "
 
+  - trigger: ":todo"
+    replace: "**[todo]** "
+
+  - trigger: ":as"
+    replace: "AuthServer"
+
+  - trigger: ":cr"
+    replace: "ClientRegistration"
+      
+  - trigger: ":wr"
+    replace: "WorkloadRegistration"
+      
+  - trigger: ":cutl"
+    replace: "ClusterUnsafeTestLogin"
+      
+  - trigger: ":cwrc"
+    replace: "ClusterWorkloadRegistrationClass"
+      
